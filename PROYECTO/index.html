@@ -1,126 +1,273 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sakura Embroidery</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+    <!-- HEADER -->
     <header>
-        <h1>Sakura Embroidery</h1>
+        <!-- NAV -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+
+    <img src="IMAGENES/logo.png"
+         alt="Logo Sakura Embroidery"
+         width="50"
+         height="50"
+         class="me-2 rounded-circle">
+
+    <span class="fw-bold">Sakura Embroidery</span>
+
+</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#menuNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menuNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#inicio">Inicio</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#nosotros">Quiénes Somos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#servicios">Servicios</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#quienes-somos">Quiénes Somos</a></li>
-            <li><a href="#servicios">Servicios o Productos</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
-
+    <!-- MAIN -->
     <main>
 
-        <section id="inicio">
-            <h2>Inicio</h2>
-            <p>
-                Bienvenido a Sakura Embroidery, un emprendimiento dedicado
-                a la personalización de prendas y accesorios mediante bordados de
-                alta calidad. Transformamos tus ideas en diseños únicos para
-                instituciones, empresas, eventos y uso personal.
-            </p>
+        <!-- SECCIÓN INICIO -->
+        <section id="inicio" class="hero text-center text-white d-flex align-items-center">
+            <div class="container">
+                <h1 class="display-4 fw-bold">Bordados Industriales de Alta Calidad</h1>
+
+                <p class="lead my-4">
+                    Personalizamos uniformes, gorras, camisetas y accesorios con tecnología de bordado profesional.
+                </p>
+
+                <a href="#servicios" class="btn btn-warning btn-lg m-2">
+                    Ver Servicios
+                </a>
+
+                <a href="#contacto" class="btn btn-outline-light btn-lg m-2">
+                    Contáctanos
+                </a>
+            </div>
         </section>
 
-        <section id="quienes-somos">
-            <h2>Quiénes Somos</h2>
+        <!-- SECCIÓN QUIÉNES SOMOS -->
+        <section id="nosotros" class="container py-5">
 
-            <p>
-                Sakura Embroidery es un emprendimiento especializado en la
-                elaboración de bordados personalizados para todo tipo de prendas y
-                accesorios. Nuestro objetivo es ofrecer productos de excelente
-                calidad que permitan a nuestros clientes destacar su identidad,
-                marca o estilo personal mediante diseños exclusivos. Trabajamos
-                con tecnología de bordado computarizado y materiales resistentes
-                que garantizan acabados profesionales y duraderos. Realizamos
-                bordados en camisetas, gorras, uniformes, estolas de graduación,
-                toallas, mochilas y otros artículos textiles. Además, brindamos
-                asesoramiento en la creación y adaptación de diseños para lograr
-                resultados que satisfagan las necesidades de cada cliente. Nuestro
-                compromiso es entregar trabajos precisos, creativos y de alta
-                calidad, contribuyendo al crecimiento de negocios, instituciones y
-                proyectos personales a través de productos personalizados que
-                reflejen profesionalismo y originalidad.
-            </p>
+            <div class="row align-items-center">
 
-            <img src="IMAGENES/Designer.png"
-             alt="Trabajo de bordado" 
-             width="400">
+                <article class="col-md-6">
+                    <h2 class="mb-4">Quiénes Somos</h2>
+
+                    <p>
+                        En Sakura Embroidery nos especializamos en bordados industriales personalizados para empresas, instituciones y clientes particulares.
+                    </p>
+
+                    <p>
+                        Contamos con maquinaria moderna que garantiza precisión, rapidez y acabados de alta calidad en cada diseño.
+                    </p>
+                </article>
+
+                <aside class="col-md-6 text-center">
+                    <img src="IMAGENES/Designer.png" alt="Máquina bordadora"
+                        class="img-fluid rounded shadow">
+                </aside>
+
+            </div>
+
         </section>
 
-        <section id="servicios">
-            <h2>Servicios o Productos</h2>
+        <!-- SECCIÓN SERVICIOS -->
+        <section id="servicios" class="bg-light py-5">
 
-            <ul>
-                <li>Bordado de logotipos empresariales.</li>
-                <li>Personalización de uniformes escolares y laborales.</li>
-                <li>Bordado de nombres en prendas y accesorios.</li>
-                <li>Diseño y elaboración de estolas de graduación.</li>
-                <li>Bordado en gorras, mochilas y toallas.</li>
-                <li>Creación y digitalización de diseños para bordado.</li>
-            </ul>
+            <div class="container">
+
+                <h2 class="text-center mb-5">Nuestros Servicios</h2>
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-4">
+                        <article class="card h-100 shadow">
+
+                            <img src="IMAGENES/Designer (1).png" class="card-img-top"
+                                alt="Uniformes">
+
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Uniformes</h5>
+
+                                <p class="card-text">
+                                    Bordados profesionales para empresas e instituciones.
+                                </p>
+
+                                <a href="#contacto" class="btn btn-primary">
+                                    Solicitar
+                                </a>
+                            </div>
+
+                        </article>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <article class="card h-100 shadow">
+
+                            <img src="IMAGENES/Designer (2).png" class="card-img-top"
+                                alt="Gorras">
+
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Gorras Personalizadas</h5>
+
+                                <p class="card-text">
+                                    Diseños exclusivos con acabados resistentes.
+                                </p>
+
+                                <a href="#contacto" class="btn btn-primary">
+                                    Solicitar
+                                </a>
+                            </div>
+
+                        </article>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <article class="card h-100 shadow">
+
+                            <img src="IMAGENES/Designer (3).png" class="card-img-top"
+                                alt="Camisetas">
+
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Camisetas</h5>
+
+                                <p class="card-text">
+                                    Bordados personalizados para todo tipo de prendas.
+                                </p>
+
+                                <a href="#contacto" class="btn btn-primary">
+                                    Solicitar
+                                </a>
+                            </div>
+
+                        </article>
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
 
-        <section id="contacto">
-            <h2>Contacto</h2>
+        <!-- SECCIÓN CONTACTO -->
+        <section id="contacto" class="container py-5">
 
-            <p><strong>Correo electrónico:</strong> bordadosmonty@gmail.com</p>
-            <p><strong>Teléfono:</strong> +593 99 123 4567</p>
-            <p><strong>Dirección:</strong> El Coca, Orellana, Ecuador</p>
+            <h2 class="text-center mb-4">Contáctanos</h2>
 
-            <p>
-                Redes sociales:
-                <a href="https://facebook.com" target="_blank">Facebook</a> |
-                <a href="https://instagram.com" target="_blank">Instagram</a> |
-                <a href="https://tiktok.com" target="_blank">TikTok</a>
-            </p>
+            <div class="row">
+
+                <article class="col-lg-7">
+
+                    <form>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control"
+                                placeholder="Ingrese su nombre">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control"
+                                placeholder="ejemplo@correo.com">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Asunto</label>
+                            <input type="text" class="form-control"
+                                placeholder="Asunto">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Mensaje</label>
+                            <textarea class="form-control" rows="5"
+                                placeholder="Escriba su mensaje"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            Enviar mensaje
+                        </button>
+
+                    </form>
+
+                </article>
+
+                <aside class="col-lg-5 text-center mt-4 mt-lg-0">
+
+                    <h4>Síguenos</h4>
+
+                    <a href="#" class="btn btn-outline-primary m-2">
+                        <i class="bi bi-facebook"></i> Facebook
+                    </a>
+
+                    <a href="#" class="btn btn-outline-danger m-2">
+                        <i class="bi bi-instagram"></i> Instagram
+                    </a>
+
+                    <a href="mailto:info@sakuraembroidery.com"
+                        class="btn btn-outline-success m-2">
+                        <i class="bi bi-envelope"></i> Correo
+                    </a>
+
+                </aside>
+
+            </div>
+
         </section>
-
-        <section>
-            <h2>Video sobre Bordado</h2>
-
-            <iframe <iframe width="560" height="315" src="https://www.youtube.com/embed/DhTyiICwZ_4?si=RzrkxmxOK3a1CbMH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </iframe>
-        </section>
-
-        <article>
-            <h2>Novedades</h2>
-            <p>
-                Ahora ofrecemos bordados personalizados para estolas de
-                graduación, uniformes empresariales y prendas promocionales con
-                entrega rápida y acabados profesionales.
-            </p>
-        </article>
 
     </main>
 
-    <aside>
-        <h2>Información Complementaria</h2>
-
-        <p><strong>Promoción:</strong> 10% de descuento en pedidos superiores a 20 prendas.</p>
-
-        <p>
-            <strong>Horario de atención:</strong><br>
-            Lunes a Viernes: 08:00 - 18:00<br>
-            Sábado: 09:00 - 14:00
-        </p>
-    </aside>
-
-    <footer>
-        <p>
-            Sebastián Montenegro | Desarrollo de Aplicaciones Web | 2026
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white text-center p-3">
+        <p class="mb-0">
+            © 2026 Sakura Embroidery - Todos los derechos reservados.
         </p>
     </footer>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>

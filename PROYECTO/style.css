@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.85),
+            rgba(255, 255, 255, 0.85)
+        ),
+        url("IMAGENES/Designer.png");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.6)),
+        url("IMAGENES/baner.jpeg");
+
+    background-size: cover;
+    background-position: center;
+    min-height: 90vh;
+}
+
+.card {
+    border: none;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.shadow {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn {
+    border-radius: 30px;
+}
+
+section {
+    scroll-margin-top: 80px;
+}
+
+/* Media Query */
+
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: 70vh;
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+}
