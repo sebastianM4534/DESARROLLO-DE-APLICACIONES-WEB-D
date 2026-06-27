@@ -6,43 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sakura Embroidery</title>
 
-    <!-- Bootstrap CSS CDN -->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Estilos personalizados -->
+    <!-- CSS Personalizado -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- =================== HEADER =================== -->
+
     <header>
-        <!-- NAV -->
+
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
             <div class="container">
+
                 <a class="navbar-brand d-flex align-items-center" href="#">
 
-    <img src="IMAGENES/logo.png"
-         alt="Logo Sakura Embroidery"
-         width="50"
-         height="50"
-         class="me-2 rounded-circle">
+                    <img src="IMAGENES/logo.png"
+                        alt="Logo Sakura Embroidery"
+                        width="50"
+                        height="50"
+                        class="rounded-circle me-2">
 
-    <span class="fw-bold">Sakura Embroidery</span>
+                    <span class="fw-bold">
+                        Sakura Embroidery
+                    </span>
 
-</a>
+                </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
                     data-bs-target="#menuNav">
+
                     <span class="navbar-toggler-icon"></span>
+
                 </button>
 
                 <div class="collapse navbar-collapse" id="menuNav">
+
                     <ul class="navbar-nav ms-auto">
+
                         <li class="nav-item">
                             <a class="nav-link" href="#inicio">Inicio</a>
                         </li>
@@ -58,22 +69,40 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#contacto">Contacto</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#solicitudes">Solicitudes</a>
+                        </li>
+
                     </ul>
+
                 </div>
+
             </div>
+
         </nav>
+
     </header>
 
-    <!-- MAIN -->
+    <!-- =================== MAIN =================== -->
+
     <main>
 
-        <!-- SECCIÓN INICIO -->
+        <!-- HERO -->
+
         <section id="inicio" class="hero text-center text-white d-flex align-items-center">
+
             <div class="container">
-                <h1 class="display-4 fw-bold">Bordados Industriales de Alta Calidad</h1>
+
+                <h1 class="display-4 fw-bold">
+                    Bordados Industriales de Alta Calidad
+                </h1>
 
                 <p class="lead my-4">
-                    Personalizamos uniformes, gorras, camisetas y accesorios con tecnología de bordado profesional.
+
+                    Personalizamos uniformes, gorras, camisetas y accesorios
+                    con tecnología de bordado profesional.
+
                 </p>
 
                 <a href="#servicios" class="btn btn-warning btn-lg m-2">
@@ -83,105 +112,166 @@
                 <a href="#contacto" class="btn btn-outline-light btn-lg m-2">
                     Contáctanos
                 </a>
+
             </div>
+
         </section>
 
-        <!-- SECCIÓN QUIÉNES SOMOS -->
+        <!-- QUIÉNES SOMOS -->
+
         <section id="nosotros" class="container py-5">
 
             <div class="row align-items-center">
 
-                <article class="col-md-6">
-                    <h2 class="mb-4">Quiénes Somos</h2>
+                <div class="col-md-6">
+
+                    <h2 class="mb-4">
+
+                        Quiénes Somos
+
+                    </h2>
 
                     <p>
+
                         En Sakura Embroidery nos especializamos en bordados industriales personalizados para empresas, instituciones y clientes particulares.
+
                     </p>
 
                     <p>
-                        Contamos con maquinaria moderna que garantiza precisión, rapidez y acabados de alta calidad en cada diseño.
-                    </p>
-                </article>
 
-                <aside class="col-md-6 text-center">
-                    <img src="IMAGENES/Designer.png" alt="Máquina bordadora"
-                        class="img-fluid rounded shadow">
-                </aside>
+                        Contamos con maquinaria moderna que garantiza precisión, rapidez y acabados de alta calidad en cada diseño.
+
+                    </p>
+
+                </div>
+
+                <div class="col-md-6 text-center">
+
+                    <img src="IMAGENES/Designer.png"
+                        class="img-fluid rounded shadow"
+                        alt="Máquina bordadora">
+
+                </div>
 
             </div>
 
         </section>
 
-        <!-- SECCIÓN SERVICIOS -->
+        <!-- SERVICIOS -->
+
         <section id="servicios" class="bg-light py-5">
 
             <div class="container">
 
-                <h2 class="text-center mb-5">Nuestros Servicios</h2>
+                <h2 class="text-center mb-5">
+
+                    Nuestros Servicios
+
+                </h2>
 
                 <div class="row">
 
                     <div class="col-md-4 mb-4">
-                        <article class="card h-100 shadow">
 
-                            <img src="IMAGENES/Designer (1).png" class="card-img-top"
+                        <div class="card shadow h-100">
+
+                            <img src="IMAGENES/Designer (1).png"
+                                class="card-img-top"
                                 alt="Uniformes">
 
                             <div class="card-body text-center">
-                                <h5 class="card-title">Uniformes</h5>
+
+                                <h5 class="card-title">
+                                    Uniformes
+                                </h5>
 
                                 <p class="card-text">
+
                                     Bordados profesionales para empresas e instituciones.
+
                                 </p>
 
-                                <a href="#contacto" class="btn btn-primary">
+                                <a href="#contacto"
+                                    class="btn btn-primary">
+
                                     Solicitar
+
                                 </a>
+
                             </div>
 
-                        </article>
+                        </div>
+
                     </div>
 
                     <div class="col-md-4 mb-4">
-                        <article class="card h-100 shadow">
 
-                            <img src="IMAGENES/Designer (2).png" class="card-img-top"
+                        <div class="card shadow h-100">
+
+                            <img src="IMAGENES/Designer (2).png"
+                                class="card-img-top"
                                 alt="Gorras">
 
                             <div class="card-body text-center">
-                                <h5 class="card-title">Gorras Personalizadas</h5>
+
+                                <h5 class="card-title">
+
+                                    Gorras Personalizadas
+
+                                </h5>
 
                                 <p class="card-text">
+
                                     Diseños exclusivos con acabados resistentes.
+
                                 </p>
 
-                                <a href="#contacto" class="btn btn-primary">
+                                <a href="#contacto"
+                                    class="btn btn-primary">
+
                                     Solicitar
+
                                 </a>
+
                             </div>
 
-                        </article>
+                        </div>
+
                     </div>
 
                     <div class="col-md-4 mb-4">
-                        <article class="card h-100 shadow">
 
-                            <img src="IMAGENES/Designer (3).png" class="card-img-top"
+                        <div class="card shadow h-100">
+
+                            <img src="IMAGENES/Designer (3).png"
+                                class="card-img-top"
                                 alt="Camisetas">
 
                             <div class="card-body text-center">
-                                <h5 class="card-title">Camisetas</h5>
+
+                                <h5 class="card-title">
+
+                                    Camisetas
+
+                                </h5>
 
                                 <p class="card-text">
+
                                     Bordados personalizados para todo tipo de prendas.
+
                                 </p>
 
-                                <a href="#contacto" class="btn btn-primary">
+                                <a href="#contacto"
+                                    class="btn btn-primary">
+
                                     Solicitar
+
                                 </a>
+
                             </div>
 
-                        </article>
+                        </div>
+
                     </div>
 
                 </div>
@@ -190,83 +280,247 @@
 
         </section>
 
-        <!-- SECCIÓN CONTACTO -->
+        <!-- CONTACTO -->
+
         <section id="contacto" class="container py-5">
 
-            <h2 class="text-center mb-4">Contáctanos</h2>
+            <h2 class="text-center mb-4">
+
+                Contáctanos
+
+            </h2>
 
             <div class="row">
 
-                <article class="col-lg-7">
+                <div class="col-lg-7">
 
                     <form>
 
                         <div class="mb-3">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control"
+
+                            <label class="form-label">
+
+                                Nombre
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
                                 placeholder="Ingrese su nombre">
+
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Correo electrónico</label>
-                            <input type="email" class="form-control"
+
+                            <label class="form-label">
+
+                                Correo electrónico
+
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
                                 placeholder="ejemplo@correo.com">
+
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Asunto</label>
-                            <input type="text" class="form-control"
+
+                            <label class="form-label">
+
+                                Asunto
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
                                 placeholder="Asunto">
+
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Mensaje</label>
-                            <textarea class="form-control" rows="5"
+
+                            <label class="form-label">
+
+                                Mensaje
+
+                            </label>
+
+                            <textarea
+                                rows="5"
+                                class="form-control"
                                 placeholder="Escriba su mensaje"></textarea>
+
                         </div>
 
-                        <button type="submit" class="btn btn-success">
+                        <button class="btn btn-success">
+
                             Enviar mensaje
+
                         </button>
 
                     </form>
 
-                </article>
+                </div>
 
-                <aside class="col-lg-5 text-center mt-4 mt-lg-0">
+                <div class="col-lg-5 text-center mt-4 mt-lg-0">
 
                     <h4>Síguenos</h4>
 
                     <a href="#" class="btn btn-outline-primary m-2">
-                        <i class="bi bi-facebook"></i> Facebook
+                        <i class="bi bi-facebook"></i>
+                        Facebook
                     </a>
 
                     <a href="#" class="btn btn-outline-danger m-2">
-                        <i class="bi bi-instagram"></i> Instagram
+                        <i class="bi bi-instagram"></i>
+                        Instagram
                     </a>
 
                     <a href="mailto:info@sakuraembroidery.com"
                         class="btn btn-outline-success m-2">
-                        <i class="bi bi-envelope"></i> Correo
+
+                        <i class="bi bi-envelope"></i>
+
+                        Correo
+
                     </a>
 
-                </aside>
+                </div>
 
             </div>
 
         </section>
 
+        <!-- NUEVA SECCIÓN DINÁMICA -->
+
+        <section id="solicitudes" class="container py-5">
+
+            <h2 class="text-center mb-4">
+
+                Administrador de Solicitudes
+
+            </h2>
+
+            <form id="formSolicitud">
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            Nombre
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nombre"
+                            class="form-control">
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            Descripción
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="descripcion"
+                            class="form-control">
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+
+                            Categoría
+
+                        </label>
+
+                        <select
+                            id="categoria"
+                            class="form-select">
+
+                            <option value="">
+                                Seleccione
+                            </option>
+
+                            <option>
+                                Uniforme
+                            </option>
+
+                            <option>
+                                Gorra
+                            </option>
+
+                            <option>
+                                Camiseta
+                            </option>
+
+                            <option>
+                                Otro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+
+                    Agregar Solicitud
+
+                </button>
+
+            </form>
+
+            <div id="mensaje" class="mt-3"></div>
+
+            <h4 class="mt-4">
+
+                Total de solicitudes:
+                <span id="total">0</span>
+
+            </h4>
+
+            <div id="listaSolicitudes" class="mt-4"></div>
+
+        </section>
+
     </main>
 
-    <!-- FOOTER -->
+    <!-- =================== FOOTER =================== -->
+
     <footer class="bg-dark text-white text-center p-3">
+
         <p class="mb-0">
+
             © 2026 Sakura Embroidery - Todos los derechos reservados.
+
         </p>
+
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
 
 </body>
 
