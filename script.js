@@ -1,86 +1,228 @@
 const formulario = document.getElementById("formSolicitud");
 
-const lista = document.getElementById("listaSolicitudes");
+const nombre = document.getElementById("nombre");
+const descripcion = document.getElementById("descripcion");
+const categoria = document.getElementById("categoria");
 
+const errorNombre = document.getElementById("errorNombre");
+const errorDescripcion = document.getElementById("errorDescripcion");
+const errorCategoria = document.getElementById("errorCategoria");
+
+const lista = document.getElementById("listaSolicitudes");
+const total = document.getElementById("total");
 const mensaje = document.getElementById("mensaje");
 
-const total = document.getElementById("total");
+let solicitudes = [];
 
-let contador = 0;
+/*==========================
+VALIDACIONES
+==========================*/
 
-// Evento del formulario
+function validarNombre() {
+
+    const valor = nombre.value.trim();
+
+    if (valor === "") {
+
+        nombre.classList.add("is-invalid");
+        nombre.classList.remove("is-valid");
+
+        errorNombre.textContent = "El nombre es obligatorio.";
+
+        return false;
+
+    }
+
+    if (valor.length < 4) {
+
+        nombre.classList.add("is-invalid");
+        nombre.classList.remove("is-valid");
+
+        errorNombre.textContent = "Debe tener al menos 4 caracteres.";
+
+        return false;
+
+    }
+
+    nombre.classList.remove("is-invalid");
+    nombre.classList.add("is-valid");
+
+    return true;
+
+}
+
+function validarDescripcion() {
+
+    const valor = descripcion.value.trim();
+
+    if (valor === "") {
+
+        descripcion.classList.add("is-invalid");
+        descripcion.classList.remove("is-valid");
+
+        errorDescripcion.textContent = "La descripción es obligatoria.";
+
+        return false;
+
+    }
+
+    if (valor.length < 10) {
+
+        descripcion.classList.add("is-invalid");
+        descripcion.classList.remove("is-valid");
+
+        errorDescripcion.textContent =
+            "Ingrese una descripción más detallada.";
+
+        return false;
+
+    }
+
+    descripcion.classList.remove("is-invalid");
+    descripcion.classList.add("is-valid");
+
+    return true;
+
+}
+
+function validarCategoria() {
+
+    if (categoria.value === "") {
+
+        categoria.classList.add("is-invalid");
+        categoria.classList.remove("is-valid");
+
+        errorCategoria.textContent =
+            "Seleccione una categoría.";
+
+        return false;
+
+    }
+
+    categoria.classList.remove("is-invalid");
+    categoria.classList.add("is-valid");
+
+    return true;
+
+}
+
+/*==========================
+EVENTOS
+==========================*/
+
+nombre.addEventListener("input", validarNombre);
+nombre.addEventListener("blur", validarNombre);
+
+descripcion.addEventListener("input", validarDescripcion);
+descripcion.addEventListener("blur", validarDescripcion);
+
+categoria.addEventListener("change", validarCategoria);
+categoria.addEventListener("blur", validarCategoria);
+
+/*==========================
+REGISTRAR
+==========================*/
+
 formulario.addEventListener("submit", function (e) {
 
     e.preventDefault();
 
-    const nombre = document.getElementById("nombre").value.trim();
+    mensaje.innerHTML = "";
 
-    const descripcion = document.getElementById("descripcion").value.trim();
+    const nombreValido = validarNombre();
+    const descripcionValida = validarDescripcion();
+    const categoriaValida = validarCategoria();
 
-    const categoria = document.getElementById("categoria").value;
-
-    // Validación
-    if (nombre === "" || descripcion === "" || categoria === "") {
+    if (!nombreValido || !descripcionValida || !categoriaValida) {
 
         mensaje.innerHTML = `
-            <div class="alert alert-danger">
-                Todos los campos son obligatorios.
-            </div>
+        <div class="alert alert-danger">
+            Existen errores en el formulario.
+        </div>
         `;
 
         return;
+
     }
 
-    mensaje.innerHTML = `
-        <div class="alert alert-success">
-            Solicitud agregada correctamente.
-        </div>
-    `;
+    const solicitud = {
 
-    // Crear tarjeta
-    const tarjeta = document.createElement("div");
+        nombre: nombre.value,
+        descripcion: descripcion.value,
+        categoria: categoria.value
 
-    tarjeta.className = "card shadow mb-3";
+    };
 
-    const cuerpo = document.createElement("div");
+    solicitudes.push(solicitud);
 
-    cuerpo.className = "card-body";
-
-    cuerpo.innerHTML = `
-        <h5 class="card-title">${nombre}</h5>
-
-        <p><strong>Descripción:</strong> ${descripcion}</p>
-
-        <p><strong>Tipo:</strong> ${categoria}</p>
-    `;
-
-    // Botón eliminar
-    const boton = document.createElement("button");
-
-    boton.textContent = "Eliminar";
-
-    boton.className = "btn btn-danger";
-
-    boton.addEventListener("click", function () {
-
-        tarjeta.remove();
-
-        contador--;
-
-        total.textContent = contador;
-
-    });
-
-    cuerpo.appendChild(boton);
-
-    tarjeta.appendChild(cuerpo);
-
-    lista.appendChild(tarjeta);
-
-    contador++;
-
-    total.textContent = contador;
+    mostrarSolicitudes();
 
     formulario.reset();
 
+    nombre.classList.remove("is-valid");
+    descripcion.classList.remove("is-valid");
+    categoria.classList.remove("is-valid");
+
+    mensaje.innerHTML = `
+    <div class="alert alert-success">
+        Solicitud registrada correctamente.
+    </div>
+    `;
+
 });
+
+/*==========================
+MOSTRAR
+==========================*/
+
+function mostrarSolicitudes() {
+
+    lista.innerHTML = "";
+
+    solicitudes.forEach(function (item, indice) {
+
+        lista.innerHTML += `
+
+        <div class="card mb-3 shadow">
+
+            <div class="card-body">
+
+                <h5>${item.nombre}</h5>
+
+                <p>${item.descripcion}</p>
+
+                <span class="badge bg-primary">
+                    ${item.categoria}
+                </span>
+
+                <button
+                    class="btn btn-danger btn-sm float-end"
+                    onclick="eliminarSolicitud(${indice})">
+
+                    Eliminar
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    total.textContent = solicitudes.length;
+
+}
+
+/*==========================
+ELIMINAR
+==========================*/
+
+function eliminarSolicitud(indice) {
+
+    solicitudes.splice(indice, 1);
+
+    mostrarSolicitudes();
+
+}

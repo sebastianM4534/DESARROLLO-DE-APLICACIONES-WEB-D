@@ -61,3 +61,23 @@ section {
         font-size: 1rem;
     }
 }
+body{
+    scroll-behavior:smooth;
+}
+
+.invalid-feedback{
+    display:block;
+    font-size:.9rem;
+}
+
+.card{
+    transition:.3s;
+}
+
+.card:hover{
+    transform:scale(1.02);
+}
+
+#mensaje{
+    min-height:60px;
+}

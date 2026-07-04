@@ -399,79 +399,98 @@
 
         <section id="solicitudes" class="container py-5">
 
-            <h2 class="text-center mb-4">
+    <h2 class="text-center mb-4">
+        Administrador de Solicitudes
+    </h2>
 
-                Administrador de Solicitudes
+    <form id="formSolicitud" novalidate>
 
-            </h2>
+        <div class="row">
 
-            <form id="formSolicitud">
+            <!-- Nombre -->
 
-                <div class="row">
+            <div class="col-md-4 mb-3">
 
-                    <div class="col-md-4 mb-3">
+                <label for="nombre" class="form-label">
+                    Nombre
+                </label>
 
-                        <label class="form-label">
+                <input
+                    type="text"
+                    id="nombre"
+                    class="form-control"
+                    placeholder="Ingrese el nombre">
 
-                            Nombre
+                <div id="errorNombre" class="invalid-feedback"></div>
 
-                        </label>
+            </div>
 
-                        <input
-                            type="text"
-                            id="nombre"
-                            class="form-control">
+            <!-- Descripción -->
 
-                    </div>
+            <div class="col-md-4 mb-3">
 
-                    <div class="col-md-4 mb-3">
+                <label for="descripcion" class="form-label">
+                    Descripción
+                </label>
 
-                        <label class="form-label">
+                <textarea
+                    id="descripcion"
+                    class="form-control"
+                    rows="2"
+                    placeholder="Describa la solicitud"></textarea>
 
-                            Descripción
+                <div id="errorDescripcion" class="invalid-feedback"></div>
 
-                        </label>
+            </div>
 
-                        <input
-                            type="text"
-                            id="descripcion"
-                            class="form-control">
+            <!-- Categoría -->
 
-                    </div>
+            <div class="col-md-4 mb-3">
 
-                    <div class="col-md-4 mb-3">
+                <label for="categoria" class="form-label">
+                    Categoría
+                </label>
 
-                        <label class="form-label">
+                <select
+                    id="categoria"
+                    class="form-select">
 
-                            Categoría
+                    <option value="">Seleccione</option>
+                    <option>Uniforme</option>
+                    <option>Gorra</option>
+                    <option>Camiseta</option>
+                    <option>Otro</option>
 
-                        </label>
+                </select>
 
-                        <select
-                            id="categoria"
-                            class="form-select">
+                <div id="errorCategoria" class="invalid-feedback"></div>
 
-                            <option value="">
-                                Seleccione
-                            </option>
+            </div>
 
-                            <option>
-                                Uniforme
-                            </option>
+        </div>
 
-                            <option>
-                                Gorra
-                            </option>
+        <button
+            type="submit"
+            class="btn btn-success">
 
-                            <option>
-                                Camiseta
-                            </option>
+            Agregar Solicitud
 
-                            <option>
-                                Otro
-                            </option>
+        </button>
 
-                        </select>
+    </form>
+
+    <div id="mensaje" class="mt-3"></div>
+
+    <h4 class="mt-4">
+
+        Total de solicitudes:
+        <span id="total">0</span>
+
+    </h4>
+
+    <div id="listaSolicitudes" class="mt-4"></div>
+
+</section>
 
                     </div>
 
