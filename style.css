@@ -81,3 +81,27 @@ body{
 #mensaje{
     min-height:60px;
 }
+
+.hero{
+    min-height:90vh;
+    background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+    url("IMAGENES/baner.jpeg");
+    background-size:cover;
+    background-position:center;
+}
+
+.card{
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+footer{
+    margin-top:40px;
+}
+
+#listaSolicitudes .card{
+    border-left:5px solid #198754;
+}

@@ -1,3 +1,24 @@
+// ===============================
+// ARREGLO DE SOLICITUDES
+// ===============================
+
+const solicitudes = [
+    {
+        nombre: "Carlos Pérez",
+        descripcion: "Bordado para uniforme empresarial.",
+        categoria: "Uniforme"
+    },
+    {
+        nombre: "María López",
+        descripcion: "Diseño personalizado para gorra.",
+        categoria: "Gorra"
+    }
+];
+
+// ===============================
+// REFERENCIAS
+// ===============================
+
 const formulario = document.getElementById("formSolicitud");
 
 const nombre = document.getElementById("nombre");
@@ -8,37 +29,25 @@ const errorNombre = document.getElementById("errorNombre");
 const errorDescripcion = document.getElementById("errorDescripcion");
 const errorCategoria = document.getElementById("errorCategoria");
 
-const lista = document.getElementById("listaSolicitudes");
+const listaSolicitudes = document.getElementById("listaSolicitudes");
 const total = document.getElementById("total");
 const mensaje = document.getElementById("mensaje");
 
-let solicitudes = [];
-
-/*==========================
-VALIDACIONES
-==========================*/
+// ===============================
+// VALIDAR NOMBRE
+// ===============================
 
 function validarNombre() {
 
-    const valor = nombre.value.trim();
+    const expresion = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,40}$/;
 
-    if (valor === "") {
-
-        nombre.classList.add("is-invalid");
-        nombre.classList.remove("is-valid");
-
-        errorNombre.textContent = "El nombre es obligatorio.";
-
-        return false;
-
-    }
-
-    if (valor.length < 4) {
+    if (!expresion.test(nombre.value.trim())) {
 
         nombre.classList.add("is-invalid");
         nombre.classList.remove("is-valid");
 
-        errorNombre.textContent = "Debe tener al menos 4 caracteres.";
+        errorNombre.textContent =
+            "Ingrese únicamente letras (3 a 40 caracteres).";
 
         return false;
 
@@ -47,32 +56,24 @@ function validarNombre() {
     nombre.classList.remove("is-invalid");
     nombre.classList.add("is-valid");
 
-    return true;
+    errorNombre.textContent = "";
 
+    return true;
 }
+
+// ===============================
+// VALIDAR DESCRIPCIÓN
+// ===============================
 
 function validarDescripcion() {
 
-    const valor = descripcion.value.trim();
-
-    if (valor === "") {
-
-        descripcion.classList.add("is-invalid");
-        descripcion.classList.remove("is-valid");
-
-        errorDescripcion.textContent = "La descripción es obligatoria.";
-
-        return false;
-
-    }
-
-    if (valor.length < 10) {
+    if (descripcion.value.trim().length < 10) {
 
         descripcion.classList.add("is-invalid");
         descripcion.classList.remove("is-valid");
 
         errorDescripcion.textContent =
-            "Ingrese una descripción más detallada.";
+            "La descripción debe tener mínimo 10 caracteres.";
 
         return false;
 
@@ -81,9 +82,14 @@ function validarDescripcion() {
     descripcion.classList.remove("is-invalid");
     descripcion.classList.add("is-valid");
 
-    return true;
+    errorDescripcion.textContent = "";
 
+    return true;
 }
+
+// ===============================
+// VALIDAR CATEGORÍA
+// ===============================
 
 function validarCategoria() {
 
@@ -102,106 +108,72 @@ function validarCategoria() {
     categoria.classList.remove("is-invalid");
     categoria.classList.add("is-valid");
 
-    return true;
+    errorCategoria.textContent = "";
 
+    return true;
 }
 
-/*==========================
-EVENTOS
-==========================*/
+// ===============================
+// VALIDACIONES DINÁMICAS
+// ===============================
 
 nombre.addEventListener("input", validarNombre);
-nombre.addEventListener("blur", validarNombre);
 
 descripcion.addEventListener("input", validarDescripcion);
-descripcion.addEventListener("blur", validarDescripcion);
 
 categoria.addEventListener("change", validarCategoria);
-categoria.addEventListener("blur", validarCategoria);
 
-/*==========================
-REGISTRAR
-==========================*/
-
-formulario.addEventListener("submit", function (e) {
-
-    e.preventDefault();
-
-    mensaje.innerHTML = "";
-
-    const nombreValido = validarNombre();
-    const descripcionValida = validarDescripcion();
-    const categoriaValida = validarCategoria();
-
-    if (!nombreValido || !descripcionValida || !categoriaValida) {
-
-        mensaje.innerHTML = `
-        <div class="alert alert-danger">
-            Existen errores en el formulario.
-        </div>
-        `;
-
-        return;
-
-    }
-
-    const solicitud = {
-
-        nombre: nombre.value,
-        descripcion: descripcion.value,
-        categoria: categoria.value
-
-    };
-
-    solicitudes.push(solicitud);
-
-    mostrarSolicitudes();
-
-    formulario.reset();
-
-    nombre.classList.remove("is-valid");
-    descripcion.classList.remove("is-valid");
-    categoria.classList.remove("is-valid");
-
-    mensaje.innerHTML = `
-    <div class="alert alert-success">
-        Solicitud registrada correctamente.
-    </div>
-    `;
-
-});
-
-/*==========================
-MOSTRAR
-==========================*/
+// ===============================
+// MOSTRAR SOLICITUDES
+// ===============================
 
 function mostrarSolicitudes() {
 
-    lista.innerHTML = "";
+    listaSolicitudes.innerHTML = "";
 
-    solicitudes.forEach(function (item, indice) {
+    if (solicitudes.length === 0) {
 
-        lista.innerHTML += `
+        mensaje.innerHTML = `
+        <div class="alert alert-warning">
+            No existen solicitudes registradas.
+        </div>
+        `;
 
-        <div class="card mb-3 shadow">
+    } else {
+
+        mensaje.innerHTML = `
+        <div class="alert alert-success">
+            Solicitudes registradas: ${solicitudes.length}
+        </div>
+        `;
+
+    }
+
+    solicitudes.forEach((solicitud, indice) => {
+
+        listaSolicitudes.innerHTML += `
+
+        <div class="card shadow mb-3">
 
             <div class="card-body">
 
-                <h5>${item.nombre}</h5>
+                <h5 class="card-title">
 
-                <p>${item.descripcion}</p>
+                    ${indice + 1}. ${solicitud.nombre}
+
+                </h5>
+
+                <p class="card-text">
+
+                    ${solicitud.descripcion}
+
+                </p>
 
                 <span class="badge bg-primary">
-                    ${item.categoria}
+
+                    ${solicitud.categoria}
+
                 </span>
-
-                <button
-                    class="btn btn-danger btn-sm float-end"
-                    onclick="eliminarSolicitud(${indice})">
-
-                    Eliminar
-
-                </button>
 
             </div>
 
@@ -215,14 +187,51 @@ function mostrarSolicitudes() {
 
 }
 
-/*==========================
-ELIMINAR
-==========================*/
+// ===============================
+// REGISTRAR NUEVA SOLICITUD
+// ===============================
 
-function eliminarSolicitud(indice) {
+formulario.addEventListener("submit", function (e) {
 
-    solicitudes.splice(indice, 1);
+    e.preventDefault();
+
+    const nombreValido = validarNombre();
+    const descripcionValida = validarDescripcion();
+    const categoriaValida = validarCategoria();
+
+    if (!nombreValido || !descripcionValida || !categoriaValida) {
+
+        mensaje.innerHTML = `
+        <div class="alert alert-danger">
+            Corrija los errores antes de guardar.
+        </div>
+        `;
+
+        return;
+    }
+
+    solicitudes.push({
+
+        nombre: nombre.value.trim(),
+
+        descripcion: descripcion.value.trim(),
+
+        categoria: categoria.value
+
+    });
+
+    formulario.reset();
+
+    nombre.classList.remove("is-valid");
+    descripcion.classList.remove("is-valid");
+    categoria.classList.remove("is-valid");
 
     mostrarSolicitudes();
 
-}
+});
+
+// ===============================
+// CARGA INICIAL
+// ===============================
+
+mostrarSolicitudes();
