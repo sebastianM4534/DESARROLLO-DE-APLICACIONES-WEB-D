@@ -32,6 +32,7 @@ const errorCategoria = document.getElementById("errorCategoria");
 const listaSolicitudes = document.getElementById("listaSolicitudes");
 const total = document.getElementById("total");
 const mensaje = document.getElementById("mensaje");
+const spinner = document.getElementById("spinnerCarga");
 
 // ===============================
 // VALIDAR NOMBRE
@@ -50,7 +51,6 @@ function validarNombre() {
             "Ingrese únicamente letras (3 a 40 caracteres).";
 
         return false;
-
     }
 
     nombre.classList.remove("is-invalid");
@@ -76,7 +76,6 @@ function validarDescripcion() {
             "La descripción debe tener mínimo 10 caracteres.";
 
         return false;
-
     }
 
     descripcion.classList.remove("is-invalid");
@@ -102,7 +101,6 @@ function validarCategoria() {
             "Seleccione una categoría.";
 
         return false;
-
     }
 
     categoria.classList.remove("is-invalid");
@@ -118,9 +116,7 @@ function validarCategoria() {
 // ===============================
 
 nombre.addEventListener("input", validarNombre);
-
 descripcion.addEventListener("input", validarDescripcion);
-
 categoria.addEventListener("change", validarCategoria);
 
 // ===============================
@@ -134,17 +130,17 @@ function mostrarSolicitudes() {
     if (solicitudes.length === 0) {
 
         mensaje.innerHTML = `
-        <div class="alert alert-warning">
-            No existen solicitudes registradas.
-        </div>
+            <div class="alert alert-warning">
+                No existen solicitudes registradas.
+            </div>
         `;
 
     } else {
 
         mensaje.innerHTML = `
-        <div class="alert alert-success">
-            Solicitudes registradas: ${solicitudes.length}
-        </div>
+            <div class="alert alert-success">
+                Solicitudes registradas: ${solicitudes.length}
+            </div>
         `;
 
     }
@@ -175,6 +171,16 @@ function mostrarSolicitudes() {
 
                 </span>
 
+                <br><br>
+
+                <button
+                    class="btn btn-primary btn-sm"
+                    onclick="verDetalle(${indice})">
+
+                    Ver detalle
+
+                </button>
+
             </div>
 
         </div>
@@ -188,7 +194,7 @@ function mostrarSolicitudes() {
 }
 
 // ===============================
-// REGISTRAR NUEVA SOLICITUD
+// REGISTRAR SOLICITUD
 // ===============================
 
 formulario.addEventListener("submit", function (e) {
@@ -202,33 +208,71 @@ formulario.addEventListener("submit", function (e) {
     if (!nombreValido || !descripcionValida || !categoriaValida) {
 
         mensaje.innerHTML = `
-        <div class="alert alert-danger">
-            Corrija los errores antes de guardar.
-        </div>
+            <div class="alert alert-danger">
+                Corrija los errores antes de guardar.
+            </div>
         `;
 
         return;
     }
 
-    solicitudes.push({
+    spinner.classList.remove("d-none");
 
-        nombre: nombre.value.trim(),
+    setTimeout(() => {
 
-        descripcion: descripcion.value.trim(),
+        solicitudes.push({
 
-        categoria: categoria.value
+            nombre: nombre.value.trim(),
+            descripcion: descripcion.value.trim(),
+            categoria: categoria.value
 
-    });
+        });
 
-    formulario.reset();
+        spinner.classList.add("d-none");
 
-    nombre.classList.remove("is-valid");
-    descripcion.classList.remove("is-valid");
-    categoria.classList.remove("is-valid");
+        formulario.reset();
 
-    mostrarSolicitudes();
+        nombre.classList.remove("is-valid");
+        descripcion.classList.remove("is-valid");
+        categoria.classList.remove("is-valid");
+
+        mensaje.innerHTML = `
+            <div class="alert alert-success">
+                Solicitud registrada correctamente.
+            </div>
+        `;
+
+        mostrarSolicitudes();
+
+    }, 1000);
 
 });
+
+// ===============================
+// MODAL
+// ===============================
+
+function verDetalle(indice) {
+
+    const solicitud = solicitudes[indice];
+
+    document.getElementById("contenidoModal").innerHTML = `
+
+        <p><strong>Nombre:</strong> ${solicitud.nombre}</p>
+
+        <p><strong>Descripción:</strong> ${solicitud.descripcion}</p>
+
+        <p><strong>Categoría:</strong> ${solicitud.categoria}</p>
+
+    `;
+
+    const modal = new bootstrap.Modal(
+        document.getElementById("modalDetalle")
+    );
+
+    modal.show();
+
+}
 
 // ===============================
 // CARGA INICIAL

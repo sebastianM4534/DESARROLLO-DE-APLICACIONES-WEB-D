@@ -401,6 +401,21 @@
             </div>
 
         </section>
+        <div
+    id="spinnerCarga"
+    class="text-center my-4 d-none">
+
+    <div
+        class="spinner-border text-primary"
+        role="status">
+
+        <span class="visually-hidden">
+            Cargando...
+        </span>
+
+    </div>
+
+</div>
 
         <!-- NUEVA SECCIÓN DINÁMICA -->
 
@@ -486,7 +501,11 @@
 
     </form>
 
-    <div id="mensaje" class="mt-3"></div>
+<div
+    id="mensaje"
+    class="alert alert-success d-none mt-3"
+    role="alert">
+</div>
 
     <h4 class="mt-4">
 
@@ -495,13 +514,63 @@
 
     </h4>
 
-    <div id="listaSolicitudes" class="mt-4"></div>
+<p class="card-text">
+
+<div id="listaSolicitudes" class="mt-4"></div>
 
     </main>
 <!-- ===================================================== -->
 <!-- PIE DE PÁGINA COMPARTIDO -->
 <!-- También formará parte de base.html -->
 <!-- ===================================================== -->
+<div
+class="modal fade"
+id="modalDetalle"
+tabindex="-1">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">
+
+Detalle de Solicitud
+
+</h5>
+
+<button
+type="button"
+class="btn-close"
+data-bs-dismiss="modal">
+</button>
+
+</div>
+
+<div
+class="modal-body"
+id="contenidoModal">
+
+</div>
+
+<div class="modal-footer">
+
+<button
+class="btn btn-secondary"
+data-bs-dismiss="modal">
+
+Cerrar
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
     <!-- =================== FOOTER =================== -->
 
     <footer class="bg-dark text-white text-center p-3">
