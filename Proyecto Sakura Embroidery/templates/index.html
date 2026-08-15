@@ -1,0 +1,680 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sakura Embroidery - Inicio
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- ================================= -->
+<!-- HERO -->
+<!-- ================================= -->
+
+<section
+    id="inicio"
+    class="hero text-center text-white d-flex align-items-center">
+
+    <div class="container">
+
+        <h1 class="display-4 fw-bold">
+
+            Bordados Industriales
+            de Alta Calidad
+
+        </h1>
+
+
+        <p class="lead my-4">
+
+            Personalizamos uniformes, gorras,
+            camisetas y accesorios con tecnología
+            de bordado profesional.
+
+        </p>
+
+
+        <a
+            href="#servicios"
+            class="btn btn-warning btn-lg m-2">
+
+            Ver Servicios
+
+        </a>
+
+
+        <a
+            href="#contacto"
+            class="btn btn-outline-light btn-lg m-2">
+
+            Contáctanos
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- QUIÉNES SOMOS -->
+<!-- ================================= -->
+
+<section
+    id="nosotros"
+    class="container py-5">
+
+    <div class="row align-items-center">
+
+        <div class="col-md-6">
+
+            <h2 class="mb-4">
+
+                Quiénes Somos
+
+            </h2>
+
+
+            <p>
+
+                En Sakura Embroidery nos especializamos
+                en bordados industriales personalizados
+                para empresas, instituciones y clientes
+                particulares.
+
+            </p>
+
+
+            <p>
+
+                Contamos con maquinaria moderna que
+                garantiza precisión, rapidez y acabados
+                de alta calidad en cada diseño.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('productos') }}"
+                class="btn btn-primary">
+
+                Ver productos
+
+            </a>
+
+        </div>
+
+
+        <div class="col-md-6 text-center">
+
+            <img
+                src="{{ url_for('static', filename='img/Designer.png') }}"
+                class="img-fluid rounded shadow"
+                alt="Máquina bordadora">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- SERVICIOS -->
+<!-- ================================= -->
+
+<section
+    id="servicios"
+    class="bg-light py-5">
+
+    <div class="container">
+
+        <h2 class="text-center mb-5">
+
+            Nuestros Servicios
+
+        </h2>
+
+
+        <div class="row">
+
+
+            <!-- UNIFORMES -->
+
+            <div class="col-md-4 mb-4">
+
+                <div class="card shadow h-100">
+
+                    <img
+                        src="{{ url_for('static', filename='img/Designer (1).png') }}"
+                        class="card-img-top"
+                        alt="Uniformes">
+
+
+                    <div class="card-body text-center">
+
+                        <h5 class="card-title">
+
+                            Uniformes
+
+                        </h5>
+
+
+                        <p class="card-text">
+
+                            Bordados profesionales para
+                            empresas e instituciones.
+
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('productos') }}"
+                            class="btn btn-primary">
+
+                            Ver producto
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- GORRAS -->
+
+            <div class="col-md-4 mb-4">
+
+                <div class="card shadow h-100">
+
+                    <img
+                        src="{{ url_for('static', filename='img/Designer (2).png') }}"
+                        class="card-img-top"
+                        alt="Gorras">
+
+
+                    <div class="card-body text-center">
+
+                        <h5 class="card-title">
+
+                            Gorras Personalizadas
+
+                        </h5>
+
+
+                        <p class="card-text">
+
+                            Diseños exclusivos con
+                            acabados resistentes.
+
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('productos') }}"
+                            class="btn btn-primary">
+
+                            Ver producto
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CAMISETAS -->
+
+            <div class="col-md-4 mb-4">
+
+                <div class="card shadow h-100">
+
+                    <img
+                        src="{{ url_for('static', filename='img/Designer (3).png') }}"
+                        class="card-img-top"
+                        alt="Camisetas">
+
+
+                    <div class="card-body text-center">
+
+                        <h5 class="card-title">
+
+                            Camisetas
+
+                        </h5>
+
+
+                        <p class="card-text">
+
+                            Bordados personalizados para
+                            todo tipo de prendas.
+
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('productos') }}"
+                            class="btn btn-primary">
+
+                            Ver producto
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- CONTACTO -->
+<!-- ================================= -->
+
+<section
+    id="contacto"
+    class="container py-5">
+
+    <h2 class="text-center mb-4">
+
+        Contáctanos
+
+    </h2>
+
+
+    <div class="row">
+
+
+        <div class="col-lg-7">
+
+            <form>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Nombre
+
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Ingrese su nombre">
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Correo electrónico
+
+                    </label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        placeholder="ejemplo@correo.com">
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Asunto
+
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Asunto">
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Mensaje
+
+                    </label>
+
+                    <textarea
+                        rows="5"
+                        class="form-control"
+                        placeholder="Escriba su mensaje"></textarea>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-success">
+
+                    Enviar mensaje
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div
+            class="col-lg-5 text-center mt-4 mt-lg-0">
+
+            <h4>
+
+                Síguenos
+
+            </h4>
+
+
+            <a
+                href="#"
+                class="btn btn-outline-primary m-2">
+
+                <i class="bi bi-facebook"></i>
+
+                Facebook
+
+            </a>
+
+
+            <a
+                href="#"
+                class="btn btn-outline-danger m-2">
+
+                <i class="bi bi-instagram"></i>
+
+                Instagram
+
+            </a>
+
+
+            <a
+                href="mailto:info@sakuraembroidery.com"
+                class="btn btn-outline-success m-2">
+
+                <i class="bi bi-envelope"></i>
+
+                Correo
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- ADMINISTRADOR DE SOLICITUDES -->
+<!-- ================================= -->
+
+<section
+    id="solicitudes"
+    class="container py-5">
+
+    <h2 class="text-center mb-4">
+
+        Administrador de Solicitudes
+
+    </h2>
+
+
+    <form
+        id="formSolicitud"
+        novalidate>
+
+        <div class="row">
+
+
+            <!-- NOMBRE -->
+
+            <div class="col-md-4 mb-3">
+
+                <label
+                    for="nombre"
+                    class="form-label">
+
+                    Nombre
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="nombre"
+                    class="form-control"
+                    placeholder="Ingrese el nombre">
+
+
+                <div
+                    id="errorNombre"
+                    class="invalid-feedback">
+                </div>
+
+            </div>
+
+
+            <!-- DESCRIPCIÓN -->
+
+            <div class="col-md-4 mb-3">
+
+                <label
+                    for="descripcion"
+                    class="form-label">
+
+                    Descripción
+
+                </label>
+
+
+                <textarea
+                    id="descripcion"
+                    class="form-control"
+                    rows="2"
+                    placeholder="Describa la solicitud"></textarea>
+
+
+                <div
+                    id="errorDescripcion"
+                    class="invalid-feedback">
+                </div>
+
+            </div>
+
+
+            <!-- CATEGORÍA -->
+
+            <div class="col-md-4 mb-3">
+
+                <label
+                    for="categoria"
+                    class="form-label">
+
+                    Categoría
+
+                </label>
+
+
+                <select
+                    id="categoria"
+                    class="form-select">
+
+                    <option value="">
+                        Seleccione
+                    </option>
+
+                    <option value="Uniforme">
+                        Uniforme
+                    </option>
+
+                    <option value="Gorra">
+                        Gorra
+                    </option>
+
+                    <option value="Camiseta">
+                        Camiseta
+                    </option>
+
+                    <option value="Otro">
+                        Otro
+                    </option>
+
+                </select>
+
+
+                <div
+                    id="errorCategoria"
+                    class="invalid-feedback">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="btn btn-success">
+
+            Agregar Solicitud
+
+        </button>
+
+    </form>
+
+
+    <!-- SPINNER -->
+
+    <div
+        id="spinnerCarga"
+        class="text-center my-4 d-none">
+
+        <div
+            class="spinner-border text-primary"
+            role="status">
+
+            <span class="visually-hidden">
+
+                Cargando...
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MENSAJE -->
+
+    <div
+        id="mensaje"
+        class="mt-3">
+    </div>
+
+
+    <!-- TOTAL -->
+
+    <h4 class="mt-4">
+
+        Total de solicitudes:
+
+        <span id="total">
+            0
+        </span>
+
+    </h4>
+
+
+    <!-- LISTA -->
+
+    <div
+        id="listaSolicitudes"
+        class="mt-4">
+
+    </div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- MODAL -->
+<!-- ================================= -->
+
+<div
+    class="modal fade"
+    id="modalDetalle"
+    tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Detalle de Solicitud
+
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+
+            <div
+                class="modal-body"
+                id="contenidoModal">
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cerrar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

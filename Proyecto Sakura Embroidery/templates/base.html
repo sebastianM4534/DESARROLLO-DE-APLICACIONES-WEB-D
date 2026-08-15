@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}Sakura Embroidery{% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS propio -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- ========================= -->
+    <!-- NAVBAR -->
+    <!-- ========================= -->
+
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
+            <div class="container">
+
+                <!-- LOGO -->
+
+                <a
+                    class="navbar-brand d-flex align-items-center"
+                    href="{{ url_for('inicio') }}">
+
+                    <img
+                        src="{{ url_for('static', filename='img/logo.png') }}"
+                        alt="Logo Sakura Embroidery"
+                        width="50"
+                        height="50"
+                        class="rounded-circle me-2">
+
+                    <span class="fw-bold">
+                        Sakura Embroidery
+                    </span>
+
+                </a>
+
+
+                <!-- BOTÓN RESPONSIVE -->
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menuNav">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+
+                <!-- MENÚ -->
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="menuNav">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+
+                            <a
+                                class="nav-link"
+                                href="{{ url_for('inicio') }}">
+
+                                <i class="bi bi-house"></i>
+                                Inicio
+
+                            </a>
+
+                        </li>
+
+
+                        <li class="nav-item">
+
+                            <a
+                                class="nav-link"
+                                href="{{ url_for('productos') }}">
+
+                                <i class="bi bi-box-seam"></i>
+                                Productos
+
+                            </a>
+
+                        </li>
+
+
+                        <li class="nav-item">
+
+                            <a
+                                class="nav-link"
+                                href="{{ url_for('clientes') }}">
+
+                                <i class="bi bi-people"></i>
+                                Clientes
+
+                            </a>
+
+                        </li>
+
+
+                        <li class="nav-item">
+
+                            <a
+                                class="nav-link"
+                                href="{{ url_for('proveedores') }}">
+
+                                <i class="bi bi-truck"></i>
+                                Proveedores
+
+                            </a>
+
+                        </li>
+
+
+                        <li class="nav-item">
+
+                            <a
+                                class="nav-link"
+                                href="{{ url_for('facturacion') }}">
+
+                                <i class="bi bi-receipt"></i>
+                                Facturación
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ========================= -->
+    <!-- CONTENIDO -->
+    <!-- ========================= -->
+
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+    <!-- ========================= -->
+    <!-- FOOTER -->
+    <!-- ========================= -->
+
+    <footer class="bg-dark text-white text-center p-4 mt-5">
+
+        <div class="container">
+
+            <h5>
+                Sakura Embroidery
+            </h5>
+
+            <p class="mb-1">
+                Bordados Industriales de Alta Calidad
+            </p>
+
+            <p class="mb-0">
+                © 2026 Sakura Embroidery - Todos los derechos reservados.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JavaScript -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- JavaScript propio -->
+
+    <script
+        src="{{ url_for('static', filename='js/script.js') }}">
+    </script>
+
+</body>
+
+</html>

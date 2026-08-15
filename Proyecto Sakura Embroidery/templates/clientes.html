@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}
+Clientes - Sakura Embroidery
+{% endblock %}
+
+
+{% block content %}
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1>
+
+            <i class="bi bi-people"></i>
+
+            Gestión de Clientes
+
+        </h1>
+
+        <p class="text-muted">
+
+            Administración de clientes de Sakura Embroidery.
+
+        </p>
+
+    </div>
+
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <h4>
+            Clientes registrados
+        </h4>
+
+
+        <button
+            class="btn btn-success">
+
+            <i class="bi bi-person-plus"></i>
+
+            Nuevo cliente
+
+        </button>
+
+    </div>
+
+
+    <div class="row">
+
+        {% for cliente in clientes %}
+
+        <div class="col-md-6 col-lg-3 mb-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="mb-3">
+
+                        <i
+                            class="bi bi-person-circle"
+                            style="font-size: 60px;">
+                        </i>
+
+                    </div>
+
+
+                    <h5 class="card-title">
+
+                        {{ cliente.nombre }}
+
+                    </h5>
+
+
+                    <p class="card-text">
+
+                        <i class="bi bi-telephone"></i>
+
+                        {{ cliente.telefono }}
+
+                    </p>
+
+
+                    <p class="card-text small">
+
+                        <i class="bi bi-envelope"></i>
+
+                        {{ cliente.correo }}
+
+                    </p>
+
+
+                    <div>
+
+                        <button
+                            class="btn btn-primary btn-sm">
+
+                            <i class="bi bi-pencil"></i>
+
+                            Editar
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-danger btn-sm">
+
+                            <i class="bi bi-trash"></i>
+
+                            Eliminar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="alert alert-info mt-3">
+
+        <i class="bi bi-info-circle"></i>
+
+        Los clientes mostrados son datos de ejemplo.
+        No se utiliza una base de datos.
+
+    </div>
+
+</section>
+
+{% endblock %}

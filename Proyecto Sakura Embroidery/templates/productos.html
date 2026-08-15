@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}
+Productos - Sakura Embroidery
+{% endblock %}
+
+
+{% block content %}
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1>
+            <i class="bi bi-box-seam"></i>
+            Gestión de Productos
+        </h1>
+
+        <p class="text-muted">
+            Productos y servicios disponibles en Sakura Embroidery.
+        </p>
+
+    </div>
+
+
+    <!-- BOTÓN NUEVO -->
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <h4>
+            Productos registrados
+        </h4>
+
+        <button
+            class="btn btn-success"
+            type="button">
+
+            <i class="bi bi-plus-circle"></i>
+            Nuevo producto
+
+        </button>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div class="table-responsive shadow-sm">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>#</th>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for producto in productos %}
+
+                <tr>
+
+                    <td>
+                        {{ loop.index }}
+                    </td>
+
+                    <td>
+                        <strong>
+                            {{ producto.nombre }}
+                        </strong>
+                    </td>
+
+                    <td>
+                        {{ producto.categoria }}
+                    </td>
+
+                    <td>
+                        ${{ "%.2f"|format(producto.precio) }}
+                    </td>
+
+                    <td>
+                        {{ producto.stock }}
+                    </td>
+
+                    <td>
+
+                        {% if producto.stock > 0 %}
+
+                        <span class="badge bg-success">
+                            Disponible
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger">
+                            Agotado
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-sm btn-primary">
+
+                            <i class="bi bi-pencil"></i>
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-sm btn-danger">
+
+                            <i class="bi bi-trash"></i>
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- INFORMACIÓN -->
+
+    <div class="alert alert-info mt-4">
+
+        <i class="bi bi-info-circle"></i>
+
+        En esta etapa los productos son datos de ejemplo.
+        No se utiliza una base de datos.
+
+    </div>
+
+</section>
+
+{% endblock %}
