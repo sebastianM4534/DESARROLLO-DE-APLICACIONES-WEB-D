@@ -1,0 +1,162 @@
+/* ========================================= */
+/* ESTILOS GENERALES */
+/* ========================================= */
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.85),
+            rgba(255, 255, 255, 0.85)
+        ),
+        url("../img/Designer.png");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
+    background-repeat: no-repeat;
+
+    scroll-behavior: smooth;
+}
+
+
+/* ========================================= */
+/* HERO */
+/* ========================================= */
+
+.hero {
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.6)
+        ),
+        url("../img/baner.jpeg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    min-height: 90vh;
+}
+
+
+/* ========================================= */
+/* TARJETAS */
+/* ========================================= */
+
+.card {
+
+    border: none;
+
+    transition: transform 0.3s;
+
+}
+
+
+.card:hover {
+
+    transform: translateY(-7px);
+
+}
+
+
+/* ========================================= */
+/* SOMBRAS */
+/* ========================================= */
+
+.shadow {
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.2) !important;
+
+}
+
+
+/* ========================================= */
+/* BOTONES */
+/* ========================================= */
+
+.btn {
+
+    border-radius: 30px;
+
+}
+
+
+/* ========================================= */
+/* SECCIONES */
+/* ========================================= */
+
+section {
+
+    scroll-margin-top: 80px;
+
+}
+
+
+/* ========================================= */
+/* FOOTER */
+/* ========================================= */
+
+footer {
+
+    margin-top: 40px;
+
+}
+
+
+/* ========================================= */
+/* TABLAS */
+/* ========================================= */
+
+.table {
+
+    background-color: white;
+
+}
+
+
+.table-responsive {
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+}
+
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media (max-width: 768px) {
+
+    .hero {
+
+        min-height: 70vh;
+
+        padding: 40px 20px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 2rem;
+
+    }
+
+
+    .navbar-brand {
+
+        font-size: 1rem;
+
+    }
+
+}

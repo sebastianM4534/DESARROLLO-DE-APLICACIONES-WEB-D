@@ -1,0 +1,121 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
+    <div class="container">
+
+        <!-- LOGO -->
+
+        <a
+            class="navbar-brand d-flex align-items-center"
+            href="{{ url_for('inicio') }}">
+
+            <img
+                src="{{ url_for('static', filename='img/logo.png') }}"
+                alt="Logo Sakura Embroidery"
+                width="50"
+                height="50"
+                class="rounded-circle me-2">
+
+            <span class="fw-bold">
+                Sakura Embroidery
+            </span>
+
+        </a>
+
+
+        <!-- BOTÓN RESPONSIVE -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menuNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <!-- MENÚ -->
+
+        <div
+            class="collapse navbar-collapse"
+            id="menuNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('inicio') }}">
+
+                        <i class="bi bi-house"></i>
+                        Inicio
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('productos') }}">
+
+                        <i class="bi bi-box-seam"></i>
+                        Productos
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('clientes') }}">
+
+                        <i class="bi bi-people"></i>
+                        Clientes
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('proveedores') }}">
+
+                        <i class="bi bi-truck"></i>
+                        Proveedores
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('facturacion') }}">
+
+                        <i class="bi bi-receipt"></i>
+                        Facturación
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>

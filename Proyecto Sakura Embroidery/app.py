@@ -2,6 +2,11 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+# ==============================
+# VARIABLES GENERALES
+# ==============================
+
+nombre_empresa = "Sakura Embroidery"
 
 # ==============================
 # PÁGINA PRINCIPAL
@@ -9,7 +14,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def inicio():
-    return render_template("index.html")
+
+    return render_template(
+        "index.html", nombre_empresa=nombre_empresa
+    )
 
 
 # ==============================
