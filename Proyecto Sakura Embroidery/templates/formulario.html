@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ titulo }} - Sakura Embroidery
+{% endblock %}
+
+
+{% block content %}
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1>
+
+            {% if modulo == "Producto" %}
+                <i class="bi bi-box-seam"></i>
+
+            {% elif modulo == "Cliente" %}
+                <i class="bi bi-person"></i>
+
+            {% elif modulo == "Proveedor" %}
+                <i class="bi bi-truck"></i>
+
+            {% else %}
+                <i class="bi bi-receipt"></i>
+
+            {% endif %}
+
+            {{ titulo }}
+
+        </h1>
+
+        <p class="text-muted">
+            Complete la información solicitada.
+        </p>
+
+    </div>
+
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8 col-lg-7">
+
+            <div class="card shadow">
+
+                <div class="card-body p-4">
+
+                    <form method="POST">
+
+                        {{ form.hidden_tag() }}
+
+
+                        {% for field in form %}
+
+                            {% if field.type != "CSRFTokenField"
+                                  and field.type != "SubmitField" %}
+
+                                <div class="mb-3">
+
+                                    {{ field.label(
+                                        class="form-label fw-bold"
+                                    ) }}
+
+
+                                    {% if field.type == "SelectField" %}
+
+                                        {{ field(
+                                            class="form-select"
+                                        ) }}
+
+                                    {% else %}
+
+                                        {{ field(
+                                            class="form-control"
+                                        ) }}
+
+                                    {% endif %}
+
+
+                                    {% if field.errors %}
+
+                                        {% for error in field.errors %}
+
+                                            <div class="text-danger small mt-1">
+
+                                                <i class="bi bi-exclamation-circle"></i>
+
+                                                {{ error }}
+
+                                            </div>
+
+                                        {% endfor %}
+
+                                    {% endif %}
+
+                                </div>
+
+                            {% endif %}
+
+                        {% endfor %}
+
+
+                        <div class="d-flex gap-2 mt-4">
+
+                            {{ form.submit(
+                                class="btn btn-success"
+                            ) }}
+
+
+                             <a
+                               href="{% if modulo == 'Producto' %}
+                               {{ url_for('productos') }}
+                               {% elif modulo == 'Cliente' %}
+                             {{ url_for('clientes') }}
+                             {% elif modulo == 'Proveedor' %}
+                             {{ url_for('proveedores') }}
+                              {% else %}
+                            {{ url_for('facturacion') }}
+                              {% endif %}"
+                            class="btn btn-secondary">
+
+                              <i class="bi bi-arrow-left"></i>
+                             Cancelar
+
+                             </a> 
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

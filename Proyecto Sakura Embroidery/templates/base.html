@@ -47,14 +47,76 @@
     <!-- CONTENIDO -->
     <!-- ========================= -->
 
-    <main>
+<main>
 
-        {% block content %}
+    <div class="container mt-3">
 
-        {% endblock %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
 
-    </main>
+            {% if messages %}
 
+                {% for category, message in messages %}
+
+                    <div
+                        class="alert alert-{{ category }} alert-dismissible fade show"
+                        role="alert">
+
+                        <i class="bi bi-check-circle"></i>
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                        </button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+
+
+    <div class="container mt-3">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="alert alert-{{ category }} alert-dismissible fade show"
+                     role="alert">
+
+                    {{ message }}
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+</div>
 
 <!-- ========================= -->
 <!-- FOOTER REUTILIZABLE -->
