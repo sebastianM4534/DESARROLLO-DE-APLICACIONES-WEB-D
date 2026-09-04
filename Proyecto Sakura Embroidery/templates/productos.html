@@ -31,14 +31,14 @@ Productos - Sakura Embroidery
             Productos registrados
         </h4>
 
-<a
-    href="{{ url_for('nuevo_producto') }}"
-    class="btn btn-success">
+        <a
+            href="{{ url_for('nuevo_producto') }}"
+            class="btn btn-success">
 
-    <i class="bi bi-plus-circle"></i>
-    Nuevo producto
+            <i class="bi bi-plus-circle"></i>
+            Nuevo producto
 
-</a>
+        </a>
 
     </div>
 
@@ -73,30 +73,30 @@ Productos - Sakura Embroidery
                 <tr>
 
                     <td>
-                        {{ loop.index }}
+                        {{ producto["id"] }}
                     </td>
 
                     <td>
                         <strong>
-                            {{ producto.nombre|upper }}
+                            {{ producto["nombre"]|upper }}
                         </strong>
                     </td>
 
                     <td>
-                        {{ producto.categoria }}
+                        {{ producto["categoria"] }}
                     </td>
 
                     <td>
-                        ${{ "%.2f"|format(producto.precio) }}
+                        ${{ "%.2f"|format(producto["precio"]) }}
                     </td>
 
                     <td>
-                        {{ producto.stock }}
+                        {{ producto["stock"] }}
                     </td>
 
                     <td>
 
-                        {% if producto.stock > 0 %}
+                        {% if producto["stock"] > 0 %}
 
                         <span class="badge bg-success">
                             Disponible
@@ -133,6 +133,22 @@ Productos - Sakura Embroidery
 
                 </tr>
 
+                {% else %}
+
+                <tr>
+
+                    <td colspan="7" class="text-center text-muted py-4">
+
+                        <i class="bi bi-inbox fs-3"></i>
+
+                        <p class="mb-0 mt-2">
+                            No hay productos registrados todavía.
+                        </p>
+
+                    </td>
+
+                </tr>
+
                 {% endfor %}
 
             </tbody>
@@ -144,12 +160,12 @@ Productos - Sakura Embroidery
 
     <!-- INFORMACIÓN -->
 
-    <div class="alert alert-info mt-4">
+    <div class="alert alert-success mt-4">
 
-        <i class="bi bi-info-circle"></i>
+        <i class="bi bi-database-check"></i>
 
-        En esta etapa los productos son datos de ejemplo.
-        No se utiliza una base de datos.
+        Los productos registrados se almacenan de forma persistente
+        en la base de datos SQLite de Sakura Embroidery.
 
     </div>
 

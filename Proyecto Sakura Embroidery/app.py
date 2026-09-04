@@ -1,24 +1,71 @@
 from flask import Flask, render_template, redirect, url_for, flash
+from forms.producto_form import ProductoForm
+from forms.cliente_form import ClienteForm
+from forms.proveedor_form import ProveedorForm
+from forms.facturacion_form import FacturacionForm
 
-from forms import (
-    ProductoForm,
-    ClienteForm,
-    ProveedorForm,
-    FacturacionForm
-)
+import sqlite3
+import os
 
+
+# ==============================
+# CONFIGURACIÓN DE FLASK
+# ==============================
 
 app = Flask(__name__)
-
-# ==============================
-# CONFIGURACIÓN
-# ==============================
 
 app.config["SECRET_KEY"] = "sakura-embroidery-clave-secreta"
 
 
 # ==============================
-# VARIABLES GENERALES
+# CONFIGURACIÓN DE SQLITE
+# ==============================
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
+DATABASE = os.path.join(DATA_DIR, "sakura_embroidery.db")
+
+
+# ==============================
+# CREAR BASE DE DATOS
+# ==============================
+
+def inicializar_bd():
+
+    # Crear carpeta data si no existe
+    os.makedirs(DATA_DIR, exist_ok=True)
+
+    # Conectar con SQLite
+    conn = sqlite3.connect(DATABASE)
+
+    cursor = conn.cursor()
+
+    # Crear tabla productos
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS productos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            categoria TEXT NOT NULL,
+            precio REAL NOT NULL,
+            stock INTEGER NOT NULL
+        )
+    """)
+
+    # Guardar cambios
+    conn.commit()
+
+    # Cerrar conexión
+    conn.close()
+
+
+# Inicializar base de datos
+inicializar_bd()
+
+
+# ==============================
+# DATOS DE LA EMPRESA
 # ==============================
 
 nombre_empresa = "Sakura Embroidery"
@@ -26,35 +73,8 @@ nombre_empresa = "Sakura Embroidery"
 
 # ==============================
 # DATOS TEMPORALES
+# CLIENTES
 # ==============================
-
-productos_lista = [
-    {
-        "nombre": "Bordado para Uniforme",
-        "categoria": "Uniformes",
-        "precio": 8.00,
-        "stock": 25
-    },
-    {
-        "nombre": "Gorra Personalizada",
-        "categoria": "Gorras",
-        "precio": 6.50,
-        "stock": 30
-    },
-    {
-        "nombre": "Camiseta Bordada",
-        "categoria": "Camisetas",
-        "precio": 12.00,
-        "stock": 20
-    },
-    {
-        "nombre": "Bordado Personalizado",
-        "categoria": "Otros",
-        "precio": 10.00,
-        "stock": 15
-    }
-]
-
 
 clientes_lista = [
     {
@@ -84,6 +104,11 @@ clientes_lista = [
 ]
 
 
+# ==============================
+# DATOS TEMPORALES
+# PROVEEDORES
+# ==============================
+
 proveedores_lista = [
     {
         "id": 1,
@@ -105,6 +130,11 @@ proveedores_lista = [
     }
 ]
 
+
+# ==============================
+# DATOS TEMPORALES
+# FACTURACIÓN
+# ==============================
 
 facturas_lista = [
     {
@@ -151,27 +181,67 @@ def inicio():
 @app.route("/productos")
 def productos():
 
+    # Conectar con SQLite
+    conn = sqlite3.connect(DATABASE)
+
+    # Permitir acceder a las columnas por nombre
+    conn.row_factory = sqlite3.Row
+
+    cursor = conn.cursor()
+
+    # Consultar productos
+    cursor.execute("""
+        SELECT id, nombre, categoria, precio, stock
+        FROM productos
+        ORDER BY id DESC
+    """)
+
+    # Recuperar registros
+    productos = cursor.fetchall()
+
+    # Cerrar conexión
+    conn.close()
+
     return render_template(
         "productos.html",
-        productos=productos_lista
+        productos=productos
     )
 
+
+# ==============================
+# REGISTRAR PRODUCTO
+# ==============================
 
 @app.route("/productos/nuevo", methods=["GET", "POST"])
 def nuevo_producto():
 
     form = ProductoForm()
 
+    # Validar formulario antes de guardar
     if form.validate_on_submit():
 
-        nuevo = {
-            "nombre": form.nombre.data,
-            "categoria": form.categoria.data,
-            "precio": form.precio.data,
-            "stock": form.stock.data
-        }
+        # Conectar con SQLite
+        conn = sqlite3.connect(DATABASE)
 
-        productos_lista.append(nuevo)
+        cursor = conn.cursor()
+
+        # Insertar producto utilizando parámetros
+        cursor.execute("""
+            INSERT INTO productos
+            (nombre, categoria, precio, stock)
+            VALUES (?, ?, ?, ?)
+        """, (
+            form.nombre.data,
+            form.categoria.data,
+            form.precio.data,
+            form.stock.data
+        ))
+
+        # Guardar cambios
+        conn.commit()
+
+        # Cerrar conexión
+        conn.close()
 
         flash(
             "Producto registrado correctamente.",
