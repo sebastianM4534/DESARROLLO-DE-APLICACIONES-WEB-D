@@ -43,4 +43,15 @@ class ProductoForm(FlaskForm):
         ]
     )
 
+    # Relación con la tabla proveedores (clave foránea).
+    # Las opciones (choices) se cargan dinámicamente desde la
+    # base de datos en app.py antes de mostrar/validar el formulario.
+    id_proveedor = SelectField(
+        "Proveedor",
+        coerce=int,
+        validators=[
+            DataRequired(message="Debe seleccionar un proveedor.")
+        ]
+    )
+
     submit = SubmitField("Guardar producto")

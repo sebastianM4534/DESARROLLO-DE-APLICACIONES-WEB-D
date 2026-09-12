@@ -95,24 +95,32 @@ Clientes - Sakura Embroidery
 
                     <div>
 
-                        <button
+                        <a
+                            href="{{ url_for('editar_cliente', id_cliente=cliente['id_cliente']) }}"
                             class="btn btn-primary btn-sm">
 
                             <i class="bi bi-pencil"></i>
-
                             Editar
 
-                        </button>
+                        </a>
 
 
-                        <button
-                            class="btn btn-danger btn-sm">
+                        <form
+                            action="{{ url_for('eliminar_cliente', id_cliente=cliente['id_cliente']) }}"
+                            method="POST"
+                            class="d-inline"
+                            onsubmit="return confirm('¿Está seguro de eliminar este cliente?');">
 
-                            <i class="bi bi-trash"></i>
+                            <button
+                                type="submit"
+                                class="btn btn-danger btn-sm">
 
-                            Eliminar
+                                <i class="bi bi-trash"></i>
+                                Eliminar
 
-                        </button>
+                            </button>
+
+                        </form>
 
                     </div>
 
@@ -122,20 +130,25 @@ Clientes - Sakura Embroidery
 
         </div>
 
+        {% else %}
+
+        <div class="col-12 text-center text-muted py-4">
+            <i class="bi bi-inbox fs-3"></i>
+            <p class="mb-0 mt-2">No hay clientes registrados todavía.</p>
+        </div>
+
         {% endfor %}
 
     </div>
 
 
-    <div class="alert alert-info mt-3">
+    <div class="alert alert-success mt-3">
 
-        <i class="bi bi-info-circle"></i>
-
-        Los clientes mostrados son datos de ejemplo.
-        No se utiliza una base de datos.
+        <i class="bi bi-database-check"></i>
+        Los clientes se almacenan de forma persistente en la base
+        de datos MySQL de Sakura Embroidery.
 
     </div>
 
 </section>
-
 {% endblock %}

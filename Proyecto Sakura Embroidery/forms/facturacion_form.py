@@ -13,11 +13,14 @@ class FacturacionForm(FlaskForm):
         ]
     )
 
-    cliente = StringField(
+    # Relación con la tabla clientes (clave foránea).
+    # Las opciones (choices) se cargan dinámicamente desde la
+    # base de datos en app.py antes de mostrar/validar el formulario.
+    id_cliente = SelectField(
         "Cliente",
+        coerce=int,
         validators=[
-            DataRequired(message="El cliente es obligatorio."),
-            Length(min=3, max=100, message="Ingrese un cliente válido.")
+            DataRequired(message="Debe seleccionar un cliente.")
         ]
     )
 

@@ -56,6 +56,7 @@ Productos - Sakura Embroidery
                     <th>#</th>
                     <th>Producto</th>
                     <th>Categoría</th>
+                    <th>Proveedor</th>
                     <th>Precio</th>
                     <th>Stock</th>
                     <th>Estado</th>
@@ -73,7 +74,7 @@ Productos - Sakura Embroidery
                 <tr>
 
                     <td>
-                        {{ producto["id"] }}
+                        {{ producto["id_producto"] }}
                     </td>
 
                     <td>
@@ -84,6 +85,11 @@ Productos - Sakura Embroidery
 
                     <td>
                         {{ producto["categoria"] }}
+                    </td>
+
+                    <td>
+                        <i class="bi bi-truck"></i>
+                        {{ producto["nombre_proveedor"] }}
                     </td>
 
                     <td>
@@ -114,20 +120,29 @@ Productos - Sakura Embroidery
 
                     <td>
 
-                        <button
+                        <a
+                            href="{{ url_for('editar_producto', id_producto=producto['id_producto']) }}"
                             class="btn btn-sm btn-primary">
 
                             <i class="bi bi-pencil"></i>
 
-                        </button>
+                        </a>
 
+                        <form
+                            action="{{ url_for('eliminar_producto', id_producto=producto['id_producto']) }}"
+                            method="POST"
+                            class="d-inline"
+                            onsubmit="return confirm('¿Está seguro de eliminar este producto?');">
 
-                        <button
-                            class="btn btn-sm btn-danger">
+                            <button
+                                type="submit"
+                                class="btn btn-sm btn-danger">
 
-                            <i class="bi bi-trash"></i>
+                                <i class="bi bi-trash"></i>
 
-                        </button>
+                            </button>
+
+                        </form>
 
                     </td>
 
@@ -137,7 +152,7 @@ Productos - Sakura Embroidery
 
                 <tr>
 
-                    <td colspan="7" class="text-center text-muted py-4">
+                    <td colspan="8" class="text-center text-muted py-4">
 
                         <i class="bi bi-inbox fs-3"></i>
 
@@ -163,12 +178,10 @@ Productos - Sakura Embroidery
     <div class="alert alert-success mt-4">
 
         <i class="bi bi-database-check"></i>
-
         Los productos registrados se almacenan de forma persistente
-        en la base de datos SQLite de Sakura Embroidery.
+        en la base de datos MySQL de Sakura Embroidery.
 
     </div>
 
 </section>
-
 {% endblock %}

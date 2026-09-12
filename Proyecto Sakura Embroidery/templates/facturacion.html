@@ -257,23 +257,42 @@ Facturación - Sakura Embroidery
 
                     <td>
 
-                        <button
+                        <a
+                            href="{{ url_for('editar_factura', id_factura=factura['id_factura']) }}"
                             class="btn btn-sm btn-primary">
 
-                            <i class="bi bi-eye"></i>
+                            <i class="bi bi-pencil"></i>
 
-                        </button>
+                        </a>
 
 
-                        <button
-                            class="btn btn-sm btn-danger">
+                        <form
+                            action="{{ url_for('eliminar_factura', id_factura=factura['id_factura']) }}"
+                            method="POST"
+                            class="d-inline"
+                            onsubmit="return confirm('¿Está seguro de eliminar esta factura?');">
 
-                            <i class="bi bi-file-pdf"></i>
+                            <button
+                                type="submit"
+                                class="btn btn-sm btn-danger">
 
-                        </button>
+                                <i class="bi bi-trash"></i>
+
+                            </button>
+
+                        </form>
 
                     </td>
 
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="6" class="text-center text-muted py-4">
+                        <i class="bi bi-inbox fs-3"></i>
+                        <p class="mb-0 mt-2">No hay facturas registradas todavía.</p>
+                    </td>
                 </tr>
 
                 {% endfor %}
@@ -285,15 +304,13 @@ Facturación - Sakura Embroidery
     </div>
 
 
-    <div class="alert alert-info mt-4">
+    <div class="alert alert-success mt-4">
 
-        <i class="bi bi-info-circle"></i>
-
-        Las facturas son datos de ejemplo.
-        En esta actividad no se requiere una base de datos.
+        <i class="bi bi-database-check"></i>
+        Las facturas se almacenan de forma persistente en la
+        base de datos MySQL de Sakura Embroidery.
 
     </div>
 
 </section>
-
 {% endblock %}
