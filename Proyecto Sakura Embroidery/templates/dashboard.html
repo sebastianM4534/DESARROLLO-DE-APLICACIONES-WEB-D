@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}
+Panel de administración - Sakura Embroidery
+{% endblock %}
+
+
+{% block content %}
+
+<section class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1>
+            <i class="bi bi-speedometer2"></i>
+            Panel de administración
+        </h1>
+
+        <p class="text-muted">
+
+            Sesión iniciada como
+            <strong>{{ current_user.usuario }}</strong>.
+
+        </p>
+
+    </div>
+
+
+    <div class="row">
+
+
+        <!-- PRODUCTOS -->
+
+        <div class="col-md-6 col-lg-3 mb-4">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <i class="bi bi-box-seam display-4 text-primary"></i>
+
+                    <h5 class="card-title mt-3">
+                        Productos
+                    </h5>
+
+                    <p class="card-text text-muted">
+                        Gestione el catálogo de productos.
+                    </p>
+
+                    <a
+                        href="{{ url_for('productos') }}"
+                        class="btn btn-primary">
+
+                        Ir a Productos
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CLIENTES -->
+
+        <div class="col-md-6 col-lg-3 mb-4">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <i class="bi bi-people display-4 text-primary"></i>
+
+                    <h5 class="card-title mt-3">
+                        Clientes
+                    </h5>
+
+                    <p class="card-text text-muted">
+                        Administre la cartera de clientes.
+                    </p>
+
+                    <a
+                        href="{{ url_for('clientes') }}"
+                        class="btn btn-primary">
+
+                        Ir a Clientes
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROVEEDORES -->
+
+        <div class="col-md-6 col-lg-3 mb-4">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <i class="bi bi-truck display-4 text-primary"></i>
+
+                    <h5 class="card-title mt-3">
+                        Proveedores
+                    </h5>
+
+                    <p class="card-text text-muted">
+                        Consulte y administre proveedores.
+                    </p>
+
+                    <a
+                        href="{{ url_for('proveedores') }}"
+                        class="btn btn-primary">
+
+                        Ir a Proveedores
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FACTURACIÓN -->
+
+        <div class="col-md-6 col-lg-3 mb-4">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <i class="bi bi-receipt display-4 text-primary"></i>
+
+                    <h5 class="card-title mt-3">
+                        Facturación
+                    </h5>
+
+                    <p class="card-text text-muted">
+                        Revise y registre facturas.
+                    </p>
+
+                    <a
+                        href="{{ url_for('facturacion') }}"
+                        class="btn btn-primary">
+
+                        Ir a Facturación
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
