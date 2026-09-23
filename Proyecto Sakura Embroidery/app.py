@@ -18,7 +18,7 @@ from forms.facturacion_form import FacturacionForm
 from forms.usuario_form import UsuarioForm
 from forms.login_form import LoginForm
 
-from conexion.conexion import obtener_conexion
+from conexion.conexion import obtener_conexion, inicializar_base_datos
 from models import Usuario
 
 load_dotenv()
@@ -35,6 +35,12 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get(
     "SECRET_KEY", "sakura-embroidery-clave-secreta"
 )
+
+
+# Crea las tablas (si todavía no existen) apenas arranca la app,
+# tanto en desarrollo local como en Render. Así no hace falta
+# ejecutar sql/esquema.sql a mano con psql.
+inicializar_base_datos()
 
 
 # ==============================
@@ -234,7 +240,8 @@ def dashboard():
 # ==============================================================
 # MÓDULO PRODUCTOS
 # (módulo con las 4 operaciones completas: listar, agregar,
-# modificar, eliminar, todas ejecutadas directamente sobre MySQL)
+# modificar, eliminar, todas ejecutadas directamente sobre
+# PostgreSQL)
 # ==============================================================
 
 @app.route("/productos")
@@ -998,4 +1005,5 @@ def eliminar_factura(id_factura):
 # ==============================
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    modo_debug = os.environ.get("FLASK_DEBUG", "True") == "True"
+    app.run(debug=modo_debug)

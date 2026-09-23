@@ -3,7 +3,8 @@ Modelo de Usuario para el sistema de autenticación.
 
 Este módulo define la clase Usuario, compatible con Flask-Login
 mediante UserMixin, y las operaciones necesarias contra la base
-de datos (MySQL) para registrar usuarios y validar credenciales.
+de datos (PostgreSQL) para registrar usuarios y validar
+credenciales.
 """
 
 from conexion.conexion import obtener_conexion
@@ -148,8 +149,9 @@ class Usuario(UserMixin):
             conexion.commit()
             return True
 
-        except Exception:
+        except Exception as error:
             conexion.rollback()
+            print(f"[ERROR] No se pudo registrar el usuario: {error}")
             return False
 
         finally:
