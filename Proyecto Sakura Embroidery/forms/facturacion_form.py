@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, SelectField, SubmitField
+from wtforms import StringField, FloatField, SelectField, DateField, SubmitField
 from wtforms.validators import DataRequired, Length, NumberRange
 
 
@@ -24,8 +24,13 @@ class FacturacionForm(FlaskForm):
         ]
     )
 
-    fecha = StringField(
+    # DateField (no StringField): la columna "fecha" en PostgreSQL
+    # es de tipo DATE, así que WTForms valida el formato antes de
+    # llegar a la base de datos y entrega un objeto date real,
+    # compatible con psycopg2.
+    fecha = DateField(
         "Fecha",
+        format="%Y-%m-%d",
         validators=[
             DataRequired(message="La fecha es obligatoria.")
         ]
