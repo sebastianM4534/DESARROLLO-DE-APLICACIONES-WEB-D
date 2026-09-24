@@ -4,6 +4,10 @@ import psycopg2
 import psycopg2.extras
 from psycopg2 import Error
 
+
+# ==========================================================
+# CONFIGURACIÓN DE LA BASE DE DATOS (PostgreSQL)
+# ==========================================================
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 DB_CONFIG = {
@@ -83,3 +87,84 @@ def obtener_conexion():
     except Error as error:
         print(f"[ERROR] No se pudo conectar a la base de datos: {error}")
         return None
+
+
+# ==========================================================
+# INICIALIZACIÓN AUTOMÁTICA DE LAS TABLAS
+# ==========================================================
+
+def _leer_sentencias_sql(ruta_archivo):
+    """
+    Lee un archivo .sql y lo separa en sentencias individuales,
+    ignorando las líneas de comentario (las que empiezan con "--").
+    """
+
+    with open(ruta_archivo, encoding="utf-8") as archivo:
+        lineas_utiles = [
+            linea for linea in archivo
+            if not linea.strip().startswith("--")
+        ]
+
+    contenido = "".join(lineas_utiles)
+
+    return [
+        sentencia.strip()
+        for sentencia in contenido.split(";")
+        if sentencia.strip()
+    ]
+
+
+def inicializar_base_datos():
+    """
+    Crea las tablas del proyecto (si todavía no existen) ejecutando
+    sql/esquema.sql automáticamente al arrancar la aplicación.
+
+    Esto evita depender de que alguien ejecute el script a mano con
+    psql: tanto en desarrollo local (`python app.py`) como en Render
+    (cada vez que el servicio arranca), la base de datos queda lista
+    sin pasos manuales adicionales. Es seguro llamarla más de una
+    vez -el script usa "IF NOT EXISTS" / "WHERE NOT EXISTS"- así que
+    no falla ni duplica datos si las tablas ya existían.
+    """
+
+    raiz_proyecto = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ruta_esquema = os.path.join(raiz_proyecto, "sql", "esquema.sql")
+
+    if not os.path.exists(ruta_esquema):
+        print(
+            "[AVISO] No se encontró sql/esquema.sql; se omite la "
+            "inicialización automática de la base de datos."
+        )
+        return
+
+    conexion = obtener_conexion()
+
+    if conexion is None:
+        print(
+            "[AVISO] No se pudo conectar a la base de datos para "
+            "inicializarla. Revise DATABASE_URL o DB_HOST/DB_USER/"
+            "DB_PASSWORD/DB_NAME."
+        )
+        return
+
+    try:
+        sentencias = _leer_sentencias_sql(ruta_esquema)
+        cursor = conexion.cursor()
+
+        for sentencia in sentencias:
+            cursor.execute(sentencia)
+
+        conexion.commit()
+        cursor.close()
+
+        print(
+            f"[OK] Base de datos verificada/inicializada "
+            f"({len(sentencias)} sentencias ejecutadas)."
+        )
+
+    except Exception as error:
+        conexion.rollback()
+        print(f"[ERROR] No se pudo inicializar la base de datos: {error}")
+
+    finally:
+        conexion.close()
