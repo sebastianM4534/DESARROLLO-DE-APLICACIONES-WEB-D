@@ -173,6 +173,8 @@ Facturación - Sakura Embroidery
 
                     <th>Cliente</th>
 
+                    <th>Producto</th>
+
                     <th>Fecha</th>
 
                     <th>Total</th>
@@ -206,6 +208,17 @@ Facturación - Sakura Embroidery
                     <td>
 
                         {{ factura.cliente }}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if factura.producto %}
+                        {{ factura.producto }}
+                        {% else %}
+                        <span class="text-muted">—</span>
+                        {% endif %}
 
                     </td>
 
@@ -289,7 +302,7 @@ Facturación - Sakura Embroidery
                 {% else %}
 
                 <tr>
-                    <td colspan="6" class="text-center text-muted py-4">
+                    <td colspan="7" class="text-center text-muted py-4">
                         <i class="bi bi-inbox fs-3"></i>
                         <p class="mb-0 mt-2">No hay facturas registradas todavía.</p>
                     </td>
@@ -308,7 +321,7 @@ Facturación - Sakura Embroidery
 
         <i class="bi bi-database-check"></i>
         Las facturas se almacenan de forma persistente en la
-        base de datos MySQL de Sakura Embroidery.
+        base de datos PostgreSQL de Sakura Embroidery.
 
     </div>
 

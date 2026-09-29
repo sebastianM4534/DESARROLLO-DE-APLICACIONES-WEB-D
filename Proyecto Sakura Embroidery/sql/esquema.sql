@@ -1,4 +1,9 @@
 -- ==========================================================
+-- ESQUEMA DE BASE DE DATOS - Sakura Embroidery
+-- Motor: PostgreSQL
+-- ==========================================================
+
+-- ==========================================================
 -- TABLA: usuarios
 -- Cuentas del panel de administración (login de la Semana 14).
 -- ==========================================================
@@ -64,18 +69,35 @@ CREATE TABLE IF NOT EXISTS productos (
 -- ==========================================================
 
 CREATE TABLE IF NOT EXISTS facturas (
-    id_factura SERIAL PRIMARY KEY,
-    numero     VARCHAR(20)    NOT NULL UNIQUE,
-    id_cliente INTEGER        NOT NULL,
-    fecha      DATE           NOT NULL,
-    total      NUMERIC(10, 2) NOT NULL CHECK (total > 0),
-    estado     VARCHAR(20)    NOT NULL CHECK (estado IN ('Pagada', 'Pendiente')),
+    id_factura   SERIAL PRIMARY KEY,
+    numero       VARCHAR(20)    NOT NULL UNIQUE,
+    id_cliente   INTEGER        NOT NULL,
+    id_producto  INTEGER,
+    fecha        DATE           NOT NULL,
+    total        NUMERIC(10, 2) NOT NULL CHECK (total > 0),
+    estado       VARCHAR(20)    NOT NULL CHECK (estado IN ('Pagada', 'Pendiente')),
 
     CONSTRAINT fk_facturas_cliente
         FOREIGN KEY (id_cliente)
         REFERENCES clientes (id_cliente)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_facturas_producto
+        FOREIGN KEY (id_producto)
+        REFERENCES productos (id_producto)
         ON DELETE RESTRICT
 );
+
+-- Si la tabla "facturas" ya existía de antes (bases de datos
+-- creadas antes de agregar esta relación), el CREATE TABLE de
+-- arriba no la modifica porque ya existe. Este ALTER agrega la
+-- columna en ese caso; si ya existe, no hace nada.
+-- Queda NULL-able a propósito: así las facturas ya registradas
+-- no se rompen por no tener un producto asignado.
+ALTER TABLE facturas
+    ADD COLUMN IF NOT EXISTS id_producto INTEGER
+    REFERENCES productos (id_producto)
+    ON DELETE RESTRICT;
 
 
 -- ==========================================================
@@ -89,15 +111,9 @@ CREATE INDEX IF NOT EXISTS idx_productos_proveedor
 CREATE INDEX IF NOT EXISTS idx_facturas_cliente
     ON facturas (id_cliente);
 
+CREATE INDEX IF NOT EXISTS idx_facturas_producto
+    ON facturas (id_producto);
 
--- ==========================================================
--- DATOS DE PRUEBA (OPCIONAL)
--- Solo para poder ver la aplicación funcionando de inmediato
--- con información relacionada (JOIN productos-proveedores y
--- facturas-clientes). No incluye usuarios: el usuario admin se
--- crea desde /registro una vez desplegada la aplicación.
--- Se puede omitir esta sección sin afectar la estructura.
--- ==========================================================
 
 -- proveedores/clientes/productos no tienen una columna UNIQUE de
 -- negocio (solo el id autogenerado), así que se usa

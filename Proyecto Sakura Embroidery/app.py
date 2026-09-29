@@ -108,6 +108,33 @@ def obtener_choices_proveedores():
     return choices
 
 
+def obtener_choices_productos():
+    """Devuelve la lista de productos como choices para un SelectField."""
+
+    choices = [(0, "Seleccione un producto")]
+
+    conexion = obtener_conexion()
+
+    if conexion is None:
+        return choices
+
+    cursor = conexion.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT id_producto, nombre
+        FROM productos
+        ORDER BY nombre
+    """)
+
+    for fila in cursor.fetchall():
+        choices.append((fila["id_producto"], fila["nombre"]))
+
+    cursor.close()
+    conexion.close()
+
+    return choices
+
+
 def obtener_choices_clientes():
     """Devuelve la lista de clientes como choices para un SelectField."""
 
@@ -822,17 +849,21 @@ def facturacion():
 
     cursor = conexion.cursor(dictionary=True)
 
-    # JOIN entre facturas y clientes a través de la clave foránea.
+    # JOIN entre facturas y clientes, y LEFT JOIN con productos
+    # (LEFT JOIN porque las facturas registradas antes de agregar
+    # esta relación pueden no tener un producto asignado todavía).
     cursor.execute("""
         SELECT
             f.id_factura,
             f.numero,
             c.nombre AS cliente,
+            p.nombre AS producto,
             f.fecha,
             f.total,
             f.estado
         FROM facturas f
         JOIN clientes c ON f.id_cliente = c.id_cliente
+        LEFT JOIN productos p ON f.id_producto = p.id_producto
         ORDER BY f.id_factura DESC
     """)
 
@@ -853,6 +884,7 @@ def nueva_factura():
 
     form = FacturacionForm()
     form.id_cliente.choices = obtener_choices_clientes()
+    form.id_producto.choices = obtener_choices_productos()
 
     if form.validate_on_submit():
 
@@ -865,11 +897,12 @@ def nueva_factura():
         cursor = conexion.cursor()
 
         cursor.execute("""
-            INSERT INTO facturas (numero, id_cliente, fecha, total, estado)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO facturas (numero, id_cliente, id_producto, fecha, total, estado)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """, (
             form.numero.data,
             form.id_cliente.data,
+            form.id_producto.data,
             form.fecha.data,
             form.total.data,
             form.estado.data
@@ -905,7 +938,7 @@ def editar_factura(id_factura):
     cursor = conexion.cursor(dictionary=True)
 
     cursor.execute("""
-        SELECT id_factura, numero, id_cliente, fecha, total, estado
+        SELECT id_factura, numero, id_cliente, id_producto, fecha, total, estado
         FROM facturas
         WHERE id_factura = %s
     """, (id_factura,))
@@ -921,6 +954,7 @@ def editar_factura(id_factura):
 
     form = FacturacionForm()
     form.id_cliente.choices = obtener_choices_clientes()
+    form.id_producto.choices = obtener_choices_productos()
 
     if form.validate_on_submit():
 
@@ -936,6 +970,7 @@ def editar_factura(id_factura):
             UPDATE facturas
             SET numero = %s,
                 id_cliente = %s,
+                id_producto = %s,
                 fecha = %s,
                 total = %s,
                 estado = %s
@@ -943,6 +978,7 @@ def editar_factura(id_factura):
         """, (
             form.numero.data,
             form.id_cliente.data,
+            form.id_producto.data,
             form.fecha.data,
             form.total.data,
             form.estado.data,
@@ -961,6 +997,10 @@ def editar_factura(id_factura):
     if request.method == "GET":
         form.numero.data = factura["numero"]
         form.id_cliente.data = factura["id_cliente"]
+        # Facturas creadas antes de agregar esta relación pueden
+        # no tener producto asignado (id_producto NULL); en ese
+        # caso se deja el placeholder "Seleccione un producto".
+        form.id_producto.data = factura["id_producto"] or 0
         form.fecha.data = factura["fecha"]
         form.total.data = factura["total"]
         form.estado.data = factura["estado"]

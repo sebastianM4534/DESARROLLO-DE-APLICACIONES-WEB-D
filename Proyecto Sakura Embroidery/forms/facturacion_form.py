@@ -24,6 +24,18 @@ class FacturacionForm(FlaskForm):
         ]
     )
 
+    # Relación con la tabla productos (clave foránea): indica de
+    # qué producto es la factura. Igual que id_cliente, las
+    # opciones se cargan dinámicamente desde la base de datos en
+    # app.py.
+    id_producto = SelectField(
+        "Producto",
+        coerce=int,
+        validators=[
+            DataRequired(message="Debe seleccionar un producto.")
+        ]
+    )
+
     # DateField (no StringField): la columna "fecha" en PostgreSQL
     # es de tipo DATE, así que WTForms valida el formato antes de
     # llegar a la base de datos y entrega un objeto date real,
