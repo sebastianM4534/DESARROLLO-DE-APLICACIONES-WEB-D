@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, SelectField, DateField, SubmitField
+from wtforms import StringField, FloatField, IntegerField, SelectField, DateField, SubmitField
 from wtforms.validators import DataRequired, Length, NumberRange
 
 
@@ -33,6 +33,16 @@ class FacturacionForm(FlaskForm):
         coerce=int,
         validators=[
             DataRequired(message="Debe seleccionar un producto.")
+        ]
+    )
+
+    # Cantidad vendida: al guardar la factura, esta cantidad se
+    # resta automáticamente del stock del producto seleccionado.
+    cantidad = IntegerField(
+        "Cantidad",
+        validators=[
+            DataRequired(message="La cantidad es obligatoria."),
+            NumberRange(min=1, message="La cantidad debe ser al menos 1.")
         ]
     )
 

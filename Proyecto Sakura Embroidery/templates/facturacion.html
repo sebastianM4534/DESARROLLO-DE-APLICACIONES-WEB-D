@@ -175,6 +175,8 @@ Facturación - Sakura Embroidery
 
                     <th>Producto</th>
 
+                    <th>Cantidad</th>
+
                     <th>Fecha</th>
 
                     <th>Total</th>
@@ -216,6 +218,17 @@ Facturación - Sakura Embroidery
 
                         {% if factura.producto %}
                         {{ factura.producto }}
+                        {% else %}
+                        <span class="text-muted">—</span>
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if factura.cantidad %}
+                        {{ factura.cantidad }}
                         {% else %}
                         <span class="text-muted">—</span>
                         {% endif %}
@@ -302,7 +315,7 @@ Facturación - Sakura Embroidery
                 {% else %}
 
                 <tr>
-                    <td colspan="7" class="text-center text-muted py-4">
+                    <td colspan="8" class="text-center text-muted py-4">
                         <i class="bi bi-inbox fs-3"></i>
                         <p class="mb-0 mt-2">No hay facturas registradas todavía.</p>
                     </td>

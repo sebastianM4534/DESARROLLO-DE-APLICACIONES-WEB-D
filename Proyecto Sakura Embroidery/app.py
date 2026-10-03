@@ -858,6 +858,7 @@ def facturacion():
             f.numero,
             c.nombre AS cliente,
             p.nombre AS producto,
+            f.cantidad,
             f.fecha,
             f.total,
             f.estado
@@ -894,26 +895,69 @@ def nueva_factura():
             flash("No se pudo conectar con la base de datos.", "danger")
             return redirect(url_for("facturacion"))
 
-        cursor = conexion.cursor()
+        cursor = conexion.cursor(dictionary=True)
 
+        # Antes de guardar, se revisa que haya stock suficiente
+        # del producto seleccionado.
         cursor.execute("""
-            INSERT INTO facturas (numero, id_cliente, id_producto, fecha, total, estado)
-            VALUES (%s, %s, %s, %s, %s, %s)
-        """, (
-            form.numero.data,
-            form.id_cliente.data,
-            form.id_producto.data,
-            form.fecha.data,
-            form.total.data,
-            form.estado.data
-        ))
+            SELECT nombre, stock
+            FROM productos
+            WHERE id_producto = %s
+        """, (form.id_producto.data,))
 
-        conexion.commit()
+        producto = cursor.fetchone()
 
-        cursor.close()
-        conexion.close()
+        if producto is None or producto["stock"] < form.cantidad.data:
 
-        flash("Factura registrada correctamente.", "success")
+            disponible = producto["stock"] if producto else 0
+
+            flash(
+                f"Stock insuficiente. Disponible: {disponible} unidad(es).",
+                "danger"
+            )
+
+            cursor.close()
+            conexion.close()
+
+            return render_template(
+                "formulario.html",
+                form=form,
+                titulo="Registrar factura",
+                modulo="Facturación"
+            )
+
+        try:
+            cursor.execute("""
+                INSERT INTO facturas
+                    (numero, id_cliente, id_producto, cantidad, fecha, total, estado)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (
+                form.numero.data,
+                form.id_cliente.data,
+                form.id_producto.data,
+                form.cantidad.data,
+                form.fecha.data,
+                form.total.data,
+                form.estado.data
+            ))
+
+            # Se descuenta del stock del producto la cantidad vendida.
+            cursor.execute("""
+                UPDATE productos
+                SET stock = stock - %s
+                WHERE id_producto = %s
+            """, (form.cantidad.data, form.id_producto.data))
+
+            conexion.commit()
+            flash("Factura registrada correctamente.", "success")
+
+        except Exception:
+            conexion.rollback()
+            flash("No se pudo registrar la factura. Intente nuevamente.", "danger")
+
+        finally:
+            cursor.close()
+            conexion.close()
 
         return redirect(url_for("facturacion"))
 
@@ -938,7 +982,7 @@ def editar_factura(id_factura):
     cursor = conexion.cursor(dictionary=True)
 
     cursor.execute("""
-        SELECT id_factura, numero, id_cliente, id_producto, fecha, total, estado
+        SELECT id_factura, numero, id_cliente, id_producto, cantidad, fecha, total, estado
         FROM facturas
         WHERE id_factura = %s
     """, (id_factura,))
@@ -964,33 +1008,85 @@ def editar_factura(id_factura):
             flash("No se pudo conectar con la base de datos.", "danger")
             return redirect(url_for("facturacion"))
 
-        cursor = conexion.cursor()
+        cursor = conexion.cursor(dictionary=True)
 
-        cursor.execute("""
-            UPDATE facturas
-            SET numero = %s,
-                id_cliente = %s,
-                id_producto = %s,
-                fecha = %s,
-                total = %s,
-                estado = %s
-            WHERE id_factura = %s
-        """, (
-            form.numero.data,
-            form.id_cliente.data,
-            form.id_producto.data,
-            form.fecha.data,
-            form.total.data,
-            form.estado.data,
-            id_factura
-        ))
+        try:
+            # 1) Se devuelve al stock la cantidad de la factura
+            #    anterior (si tenía producto y cantidad asignados).
+            if factura["id_producto"] and factura["cantidad"]:
+                cursor.execute("""
+                    UPDATE productos
+                    SET stock = stock + %s
+                    WHERE id_producto = %s
+                """, (factura["cantidad"], factura["id_producto"]))
 
-        conexion.commit()
+            # 2) Se revisa que, ya con el stock devuelto, alcance
+            #    para la nueva cantidad/producto seleccionados.
+            cursor.execute("""
+                SELECT stock FROM productos WHERE id_producto = %s
+            """, (form.id_producto.data,))
 
-        cursor.close()
-        conexion.close()
+            producto = cursor.fetchone()
 
-        flash("Factura actualizada correctamente.", "success")
+            if producto is None or producto["stock"] < form.cantidad.data:
+
+                conexion.rollback()
+
+                disponible = producto["stock"] if producto else 0
+
+                flash(
+                    f"Stock insuficiente. Disponible: {disponible} unidad(es).",
+                    "danger"
+                )
+
+                cursor.close()
+                conexion.close()
+
+                return render_template(
+                    "formulario.html",
+                    form=form,
+                    titulo="Editar factura",
+                    modulo="Facturación"
+                )
+
+            # 3) Se descuenta la nueva cantidad y se guarda la factura.
+            cursor.execute("""
+                UPDATE productos
+                SET stock = stock - %s
+                WHERE id_producto = %s
+            """, (form.cantidad.data, form.id_producto.data))
+
+            cursor.execute("""
+                UPDATE facturas
+                SET numero = %s,
+                    id_cliente = %s,
+                    id_producto = %s,
+                    cantidad = %s,
+                    fecha = %s,
+                    total = %s,
+                    estado = %s
+                WHERE id_factura = %s
+            """, (
+                form.numero.data,
+                form.id_cliente.data,
+                form.id_producto.data,
+                form.cantidad.data,
+                form.fecha.data,
+                form.total.data,
+                form.estado.data,
+                id_factura
+            ))
+
+            conexion.commit()
+            flash("Factura actualizada correctamente.", "success")
+
+        except Exception:
+            conexion.rollback()
+            flash("No se pudo actualizar la factura. Intente nuevamente.", "danger")
+
+        finally:
+            cursor.close()
+            conexion.close()
 
         return redirect(url_for("facturacion"))
 
@@ -1001,6 +1097,7 @@ def editar_factura(id_factura):
         # no tener producto asignado (id_producto NULL); en ese
         # caso se deja el placeholder "Seleccione un producto".
         form.id_producto.data = factura["id_producto"] or 0
+        form.cantidad.data = factura["cantidad"]
         form.fecha.data = factura["fecha"]
         form.total.data = factura["total"]
         form.estado.data = factura["estado"]
@@ -1023,19 +1120,41 @@ def eliminar_factura(id_factura):
         flash("No se pudo conectar con la base de datos.", "danger")
         return redirect(url_for("facturacion"))
 
-    cursor = conexion.cursor()
+    cursor = conexion.cursor(dictionary=True)
 
-    cursor.execute("""
-        DELETE FROM facturas
-        WHERE id_factura = %s
-    """, (id_factura,))
+    try:
+        # Antes de borrar, se consulta qué producto y cantidad
+        # tenía la factura, para devolver esas unidades al stock.
+        cursor.execute("""
+            SELECT id_producto, cantidad
+            FROM facturas
+            WHERE id_factura = %s
+        """, (id_factura,))
 
-    conexion.commit()
+        factura = cursor.fetchone()
 
-    cursor.close()
-    conexion.close()
+        cursor.execute("""
+            DELETE FROM facturas
+            WHERE id_factura = %s
+        """, (id_factura,))
 
-    flash("Factura eliminada correctamente.", "success")
+        if factura and factura["id_producto"] and factura["cantidad"]:
+            cursor.execute("""
+                UPDATE productos
+                SET stock = stock + %s
+                WHERE id_producto = %s
+            """, (factura["cantidad"], factura["id_producto"]))
+
+        conexion.commit()
+        flash("Factura eliminada correctamente.", "success")
+
+    except Exception:
+        conexion.rollback()
+        flash("No se pudo eliminar la factura. Intente nuevamente.", "danger")
+
+    finally:
+        cursor.close()
+        conexion.close()
 
     return redirect(url_for("facturacion"))
 

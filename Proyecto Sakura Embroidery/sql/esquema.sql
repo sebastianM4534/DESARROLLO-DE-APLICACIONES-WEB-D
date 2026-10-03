@@ -3,11 +3,6 @@
 -- Motor: PostgreSQL
 -- ==========================================================
 
--- ==========================================================
--- TABLA: usuarios
--- Cuentas del panel de administración (login de la Semana 14).
--- ==========================================================
-
 CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario  SERIAL PRIMARY KEY,
     usuario     VARCHAR(50)  NOT NULL UNIQUE,
@@ -73,6 +68,7 @@ CREATE TABLE IF NOT EXISTS facturas (
     numero       VARCHAR(20)    NOT NULL UNIQUE,
     id_cliente   INTEGER        NOT NULL,
     id_producto  INTEGER,
+    cantidad     INTEGER        CHECK (cantidad > 0),
     fecha        DATE           NOT NULL,
     total        NUMERIC(10, 2) NOT NULL CHECK (total > 0),
     estado       VARCHAR(20)    NOT NULL CHECK (estado IN ('Pagada', 'Pendiente')),
@@ -99,6 +95,10 @@ ALTER TABLE facturas
     REFERENCES productos (id_producto)
     ON DELETE RESTRICT;
 
+ALTER TABLE facturas
+    ADD COLUMN IF NOT EXISTS cantidad INTEGER
+    CHECK (cantidad > 0);
+
 
 -- ==========================================================
 -- ÍNDICES
@@ -114,11 +114,6 @@ CREATE INDEX IF NOT EXISTS idx_facturas_cliente
 CREATE INDEX IF NOT EXISTS idx_facturas_producto
     ON facturas (id_producto);
 
-
--- proveedores/clientes/productos no tienen una columna UNIQUE de
--- negocio (solo el id autogenerado), así que se usa
--- "INSERT ... WHERE NOT EXISTS" en lugar de "ON CONFLICT" para
--- que el script siga siendo seguro de ejecutar más de una vez.
 
 INSERT INTO proveedores (nombre, producto, telefono)
 SELECT 'Textiles Andinos', 'Telas e hilos', '0991234567'
