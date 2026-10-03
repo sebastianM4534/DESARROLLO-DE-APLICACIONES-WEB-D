@@ -135,6 +135,36 @@ def obtener_choices_productos():
     return choices
 
 
+def obtener_precios_productos():
+    """
+    Devuelve un diccionario {id_producto: precio} con el precio de
+    cada producto. Se usa en el formulario de facturación para que
+    JavaScript calcule el total automáticamente (precio x cantidad).
+    """
+
+    precios = {}
+
+    conexion = obtener_conexion()
+
+    if conexion is None:
+        return precios
+
+    cursor = conexion.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT id_producto, precio
+        FROM productos
+    """)
+
+    for fila in cursor.fetchall():
+        precios[fila["id_producto"]] = float(fila["precio"])
+
+    cursor.close()
+    conexion.close()
+
+    return precios
+
+
 def obtener_choices_clientes():
     """Devuelve la lista de clientes como choices para un SelectField."""
 
@@ -923,7 +953,8 @@ def nueva_factura():
                 "formulario.html",
                 form=form,
                 titulo="Registrar factura",
-                modulo="Facturación"
+                modulo="Facturación",
+                precios_productos=obtener_precios_productos()
             )
 
         try:
@@ -965,7 +996,8 @@ def nueva_factura():
         "formulario.html",
         form=form,
         titulo="Registrar factura",
-        modulo="Facturación"
+        modulo="Facturación",
+        precios_productos=obtener_precios_productos()
     )
 
 
@@ -1046,7 +1078,8 @@ def editar_factura(id_factura):
                     "formulario.html",
                     form=form,
                     titulo="Editar factura",
-                    modulo="Facturación"
+                    modulo="Facturación",
+                    precios_productos=obtener_precios_productos()
                 )
 
             # 3) Se descuenta la nueva cantidad y se guarda la factura.
@@ -1106,7 +1139,8 @@ def editar_factura(id_factura):
         "formulario.html",
         form=form,
         titulo="Editar factura",
-        modulo="Facturación"
+        modulo="Facturación",
+        precios_productos=obtener_precios_productos()
     )
 
 

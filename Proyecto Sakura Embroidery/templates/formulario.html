@@ -69,6 +69,16 @@
                                             class="form-select"
                                         ) }}
 
+                                    {% elif modulo == "Facturación" and field.name == "total" %}
+
+                                        {# Se calcula solo con JavaScript a partir
+                                           del producto y la cantidad elegidos. #}
+                                        {{ field(
+                                            class="form-control",
+                                            readonly=true,
+                                            placeholder="Se calcula automáticamente"
+                                        ) }}
+
                                     {% else %}
 
                                         {{ field(
@@ -139,5 +149,38 @@
     </div>
 
 </section>
+
+
+{% if modulo == "Facturación" and precios_productos is defined %}
+<script>
+    (function () {
+        const precios = {{ precios_productos | tojson }};
+
+        const campoProducto = document.getElementById("id_producto");
+        const campoCantidad = document.getElementById("cantidad");
+        const campoTotal = document.getElementById("total");
+
+        if (!campoProducto || !campoCantidad || !campoTotal) {
+            return;
+        }
+
+        function calcularTotal() {
+            const precio = precios[campoProducto.value];
+            const cantidad = parseFloat(campoCantidad.value);
+
+            if (precio === undefined || isNaN(cantidad) || cantidad <= 0) {
+                campoTotal.value = "";
+                return;
+            }
+
+            campoTotal.value = (precio * cantidad).toFixed(2);
+        }
+
+        campoProducto.addEventListener("change", calcularTotal);
+        campoCantidad.addEventListener("input", calcularTotal);
+
+    })();
+</script>
+{% endif %}
 
 {% endblock %}
